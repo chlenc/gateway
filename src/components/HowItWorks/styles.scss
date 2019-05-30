@@ -1,0 +1,75 @@
+@import "../../styles/variables/colors";
+@import "../../styles/fonts";
+@import "../../styles/mixins/icons";
+
+.root {
+  padding: 112px 166px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.howItWorksBlock {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+
+.takeLoanBlock {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+}
+
+.wbIcon{
+  @include illustration-wb;
+}
+
+.header1Font {
+  @include Headline-basic-900BoldLeft;
+  padding-bottom: 64px;
+}
+
+.header2Font {
+  @include Headline-Basic900Left;
+  text-align: left;
+  padding-bottom: 48px;
+}
+
+.itemFont {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  @include caption-basic-900;
+}
+
+.caption1Font{
+@include caption-basic-600;
+  padding: 24px 0 8px 0;
+}
+.caption2Font{
+  @include caption-basic-600;
+}
+.caption3Font{
+  @include caption-basic-500Center;
+  width: 320px;
+  padding: 32px 0;
+}
+.takeBtn{
+  @include caption-submit-400;
+  display: flex;
+}
+.arrow{
+  margin-left: 9px;
+  //@include arrow
+}
+.oval {
+  background-color: $submit-400;
+  min-width: 12px;
+  height: 12px;
+  border-radius: 12px;
+  margin-right: 16px;
+}

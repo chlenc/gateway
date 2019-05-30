@@ -1,0 +1,129 @@
+@import '@src/styles/mixins/text';
+@import '@src/styles/mixins/icons';
+@import '@src/styles/variables/colors';
+
+.root {
+  :global {
+    .ant-collapse {
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      border: none;
+      // max-height: 480px;
+      // overflow-Y: auto;
+
+      .ant-collapse-item {
+        border: none;
+
+        & + .ant-collapse-item {
+          margin-top: 16px;
+        }
+
+        .ant-collapse-header {
+          @include Body-2Basic900Left;
+          height: 48px;
+          padding: 15px 36px 15px 24px;
+          border-radius: 4px;
+          background-color: $basic-50;
+
+          .ant-collapse-arrow {
+            display: flex;
+            right: 24px;
+            margin: 0;
+            line-height: initial;
+            left: initial;
+          }
+        }
+
+        .ant-collapse-content {// TO DO нет mixin
+          border: none;
+          font-family: Roboto;
+          font-size: 14px;
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.29;
+          letter-spacing: normal;
+          color: $basic-600;
+          white-space: pre-line;
+
+          &-active {
+
+          }
+        }
+
+        .ant-collapse-content-box {
+          padding: 0 24px 9px 24px;
+        }
+
+        &-active {
+          .ant-collapse-header {
+            background: #fff;
+          }
+
+          .ant-collapse-content {
+
+          }
+        }
+      }
+    }
+  }
+}
+
+.modalWrap {
+
+}
+
+.modal {
+  &:global(.ant-modal) {
+    width: 618px !important;
+  }
+
+  :global {
+    .ant-modal-title {
+      @include Headline-1Basic-900Left;
+      line-height: initial;
+    }
+
+    .ant-modal-header {
+      padding: 24px;
+    }
+
+    .ant-modal-body {
+      padding: 24px;
+    }
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  cursor: pointer;
+  
+  &::before {
+    @include close;
+    display: block;
+    content: '';
+  }
+}
+
+.help {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  margin-left: 24px;
+
+  &_icon {
+    &::before {
+      @include question;
+      display: block;
+      content: '';
+      margin-right: 8px;
+    }
+  }
+
+  &_link {
+    @include Body-1Submit400Left;
+  }
+}

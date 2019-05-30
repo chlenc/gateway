@@ -1,0 +1,30 @@
+@import '../../../src/styles/mixins/icons';
+@import '../../../src/styles/variables/colors';
+@import '../../../src/styles/fonts';
+
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  border-bottom: solid 1px rgba(215, 215, 215, 0.17);
+  margin: 0 165px;
+  flex-wrap: wrap;
+}
+
+.sign {
+  @include Caption-white500Center;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  @include logo
+}
+
+
+.sign_icon {
+  @include login-32-white;
+  margin-right: 10px;
+}
+

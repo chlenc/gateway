@@ -1,0 +1,30 @@
+@import "../../styles/variables/colors";
+@import "../../styles/mixins/icons";
+@import "../../styles/fonts";
+
+.root {
+  height: 64px;
+  background-color: $basic-900;
+  padding: 0 165px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.links {
+  display: flex;
+}
+
+.link{
+  @include Caption-1Basic600Right;
+  text-decoration: none;
+  margin-right: 48px;
+  &:last-child{
+    margin-right: 0;
+  }
+}
+
+.logo {
+  @include poweredbywaves-white-16
+}

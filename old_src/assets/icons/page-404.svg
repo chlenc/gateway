@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="318" height="348" viewBox="0 0 318 348">
+    <defs>
+        <linearGradient id="a" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#00A9FF"/>
+            <stop offset="100%" stop-color="#0092FF"/>
+        </linearGradient>
+        <linearGradient id="b" x1="71.683%" x2="61.833%" y1="98.492%" y2="-21.753%">
+            <stop offset="0%" stop-color="#002DE0"/>
+            <stop offset="100%" stop-color="#0069FF"/>
+        </linearGradient>
+        <linearGradient id="c" x1="92.251%" x2="-2.164%" y1="38.081%" y2="69.377%">
+            <stop offset="0%" stop-color="#0064FC"/>
+            <stop offset="100%" stop-color="#0096FF"/>
+        </linearGradient>
+        <linearGradient id="d" x1="90.339%" x2="16.923%" y1="36.277%" y2="61.356%">
+            <stop offset="0%" stop-color="#0064FC"/>
+            <stop offset="100%" stop-color="#0096FF"/>
+        </linearGradient>
+        <linearGradient id="e" x1="202.139%" x2="-47.2%" y1="183.941%" y2="-2.553%">
+            <stop offset="0%" stop-color="#0037FF"/>
+            <stop offset="100%" stop-color="#0045ED"/>
+        </linearGradient>
+        <linearGradient id="f" x1="90.34%" x2="16.925%" y1="36.278%" y2="61.357%">
+            <stop offset="0%" stop-color="#0064FC"/>
+            <stop offset="100%" stop-color="#0096FF"/>
+        </linearGradient>
+        <linearGradient id="g" x1="202.135%" x2="-47.199%" y1="183.935%" y2="-2.55%">
+            <stop offset="0%" stop-color="#0037FF"/>
+            <stop offset="100%" stop-color="#0045ED"/>
+        </linearGradient>
+        <linearGradient id="h" x1="84.141%" x2="28.423%" y1="39.657%" y2="63.09%">
+            <stop offset="0%" stop-color="#F37406"/>
+            <stop offset="100%" stop-color="#F6A809"/>
+        </linearGradient>
+        <linearGradient id="i" x1="100%" x2="-10.629%" y1="37.178%" y2="44.952%">
+            <stop offset="0%" stop-color="#F6A809"/>
+            <stop offset="100%" stop-color="#F37406"/>
+        </linearGradient>
+        <linearGradient id="j" x1="42.917%" x2="59.998%" y1="6.573%" y2="95.631%">
+            <stop offset="0%" stop-color="#00CFFF"/>
+            <stop offset="100%" stop-color="#0095FF"/>
+        </linearGradient>
+        <linearGradient id="k" x1="74.587%" x2="63.652%" y1="106.522%" y2="-23.526%">
+            <stop offset="0%" stop-color="#002DE0"/>
+            <stop offset="100%" stop-color="#0069FF"/>
+        </linearGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#D7EFFE" d="M158.498 127.876l127.325 73.21-31.718 18.323 63.436 36.643-158.594 91.61L32.07 274.375l31.719-18.322L.352 219.227z"/>
+        <path fill="url(#a)" d="M112.985 7.14l31.718 18.323 107.165 268.524-21.26 12.283L112.984 7.14z"/>
+        <path fill="#008BFF" d="M156.549 18.622L124.83.299 112.985 7.14l31.718 18.322z"/>
+        <path fill="url(#b)" d="M262.449 287.877l-10.58 6.11L144.702 25.463l11.846-6.841 105.9 269.255z"/>
+        <path fill="url(#c)" d="M224.46 289.623l-84.028 47.346 18.515 10.694 84.094-48.575"/>
+        <path fill="url(#d)" d="M201.267 229.393l-108.58 63.056 22.333 13.866 109.624-63.324"/>
+        <path fill="url(#e)" d="M119.59 315.445l-3.835-9.555 108.89-62.9v11.04z"/>
+        <path fill="url(#f)" d="M176.422 169.16L67.839 232.22l22.335 13.864L199.8 182.761"/>
+        <path fill="url(#g)" d="M94.742 255.215l-3.835-9.555 108.892-62.9v11.04L94.742 255.215z"/>
+        <path fill="url(#f)" d="M153.952 108.93l-108.58 63.056 22.333 13.868L177.33 122.53"/>
+        <path fill="url(#g)" d="M72.275 194.985l-3.835-9.555 108.891-62.9v11.037L72.275 194.985z"/>
+        <path fill="url(#h)" d="M130.46 49.313L23.052 112l22.543 13.024 32.33-18.675 49.539-28.616 26.096-15.074z"/>
+        <path fill="url(#i)" d="M49.918 134.755l-1.162-11.56L153.56 62.658v12.463z"/>
+        <path fill="url(#j)" d="M.352 72.832L32.07 91.154l95.499 237.99-32.861-18.588-38.278-96.434L.352 72.832z"/>
+        <path fill="#008BFF" d="M43.916 84.313L12.195 65.99.352 72.832 32.07 91.154l11.846-6.841z"/>
+        <path fill="url(#k)" d="M143.808 338.92l-16.239-9.776L32.07 91.154l11.846-6.841 99.892 254.607z"/>
+    </g>
+</svg>

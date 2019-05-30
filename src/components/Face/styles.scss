@@ -1,0 +1,63 @@
+@import '../../styles/variables/colors';
+@import '../../styles/mixins/icons';
+@import '../../styles/fonts';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+
+.body {
+  display: flex;
+  align-items: center;
+  padding: 80px 165px 40px;
+  flex-wrap: wrap;
+}
+
+.handIcon {
+  @include example-48-white;
+  margin-right: 16px;
+}
+
+.footer {
+  @include bg;
+  background-repeat: repeat-x;
+  width: 100%;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  flex: 1;
+}
+
+.headerFont {
+  @include Headline-WhiteBoldLeft;
+  margin-bottom: 24px;
+}
+
+.captionFont {
+  width: 493px;
+  height: 93px;
+  @include Caption-whiteNormalLeft;
+  margin-bottom: 72px;
+}
+
+.itemFont {
+
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  @include Caption-white500Left;
+
+  &:last-child {
+    margin-bottom: 0;
+
+  }
+}

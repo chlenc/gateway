@@ -1,0 +1,368 @@
+@import '@src/styles/mixins/text';
+@import '@src/styles/mixins/icons';
+@import '@src/styles/variables/colors';
+@import '@src/styles/variables/grid';
+
+.root {}
+
+.modalWrap {
+
+}
+
+.modal {
+  &:global(.ant-modal) {
+    width: 618px !important;
+  }
+
+  :global {
+    .ant-modal-header {
+      padding: 24px;
+    }
+
+    .ant-modal-body {
+      padding: 24px;
+    }
+  }
+}
+
+.modalTitle {
+  display: flex;
+  align-items: center;
+  
+  &_tokenName {
+    @include Headline-1Basic-900Left;
+    margin-right: 8px;
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  cursor: pointer;
+
+  &::before {
+    @include close;
+    display: block;
+    content: '';
+  }
+}
+
+.status {
+  padding: 24px;
+  border-radius: 4px;
+  border: dashed 1px;
+
+  & + & {
+    margin-top: 15px;
+  }
+
+  &_title {
+    @include Headline-3Warning400Left;
+    margin-bottom: 8px;
+  }
+
+  &_description {// TO DO нет mixin
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: $basic-600;
+    white-space: pre-line;
+
+    & * {
+      white-space: pre-line;
+    }
+
+    a {
+      color: $submit-300;;
+
+      &:hover,
+      &:active,
+      &:visited
+      &:active { 
+        color: $submit-400;;
+      }
+    }
+  }
+
+  &__type_warning {
+    border: dashed 1px $warning-600;
+
+    .status_title {
+      color: $warning-600;
+    }
+  }
+
+  &__type_error {
+    border: dashed 1px #ef4829; //TO DO нет variable
+
+    .status_title {
+      color: #ef4829;
+    }
+  }
+
+  &__type_processing {
+    border: dashed 1px $submit-400;
+
+    .status_title {
+      color: $submit-400;
+    }
+  }
+
+  &__type_success {
+    border: dashed 1px $success-400;
+
+    .status_title {
+      color: $success-400;
+    }
+  }
+}
+
+.rate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+
+  &__disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  &_title {//TO DO нет mixin
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: $basic-900;
+  }
+
+  &_stars {
+    margin-top: 24px;
+  }
+
+  &_instruction{//TO DO нет mixin
+    max-width: 415px;
+    margin-top: 24px;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    text-align: center;
+    color: $basic-600;
+  }
+
+  &_submitBtn {//TO DO нет mixin
+    min-width: 112px;
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    background-color: $submit-400;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    
+    cursor: pointer;
+
+    &__disabled {
+      pointer-events: none;
+      opacity: 0.3;
+    }
+  }
+
+  &_fee {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    
+    div {
+      @include Caption-1Basic500Right;
+      margin-right: 8px;
+    }
+
+    span {
+      @include Caption-1Submit300Right;
+    }
+  }
+}
+
+.infoBlocks {
+  margin-top: 48px;
+}
+
+.info {
+  & + & {
+    margin-top: 40px;
+  }
+  
+  &_title {
+    @include Headline-2Basic900Left;
+    margin-bottom: 24px;
+  }
+
+  &_items {}
+
+  &_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 48px;
+    padding: 0 24px;
+    background-color: rgba(255, 255, 255, 0);
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+
+    & + & {
+      border-top-color: $basic-200;
+    }
+  }
+
+  &_left {
+    @include Body-2Basic900Left;
+    display: flex;
+    flex: 1 1;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  &_right {
+    @include Body-1Basic700Left;
+    display: flex;
+    flex: 2 1;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+
+  &_link {
+    @include Body-2Submit400Right;
+    text-decoration: underline;
+
+    &:hover {
+      @include Body-2Submit400Right;
+    }
+  }
+
+  &_id {
+    margin-right: 8px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
+.description {
+  margin-top: 24px;
+  border-radius: 4px;
+  padding: 24px;
+  background-color: $basic-50;
+
+  &_title { // TO DO нет mixin
+    font-family: Roboto;
+    font-size: 14px;
+    color: $basic-600;
+    margin-bottom: 8px;
+  }
+
+  &_text {
+    @include Body-1Basic900Left;
+  }
+}
+
+@media (max-width: $md) {
+  .modal {
+    &:global(.ant-modal) {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      max-height: 100vh !important;
+      margin: 0 auto !important;
+      top: 0 !important;
+      height: 100vh !important;
+      padding: 0 !important;
+    }
+
+    :global {
+      .ant-modal-content {
+        height: 100%;
+        overflow: auto;
+        border-radius: initial;
+      }
+    }
+  }
+
+  .info {
+    & + & {
+      margin-top: 32px;
+    }
+
+    &_item {
+      height: 42px;
+      padding: 0 16px;
+
+      & + & {
+        border-top-color: $basic-100;
+      }
+    }
+
+    &_left {
+      @include Body-3Basic900Left;
+    }
+
+    &_right {
+      @include Body-1Basic600Right;
+    }
+
+    &_link {
+      @include Body-2Submit400Left;
+
+      &:hover {
+        @include Body-2Submit400Left;
+      }
+    }
+  }
+
+  .description {
+    padding: 16px;
+
+    &_text {
+      @include Body-1Basic900Left;
+    }
+  }
+
+  .status {
+    padding: 16px;
+
+    & + & {
+      margin-top: 16px;
+    }
+
+    &_description {// TO DO нет mixin
+      font-family: Roboto;
+      font-size: 14px;
+      color: $basic-500;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+@import "../../styles/fonts";
+@import "../../styles/variables/colors";
+.root {
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+  background-color: $white;
+  width: 489px;
+  height: 579px;
+  border-radius: 4px;
+  padding: 48px;
+}
+
+//.header1Font{
+// @include header-header-basic900-line-height075;
+//}
+//
+//.header2Font{
+// @include Body-3Basic900Left;
+//}

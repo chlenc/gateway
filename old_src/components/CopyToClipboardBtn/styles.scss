@@ -1,0 +1,11 @@
+@import '@src/styles/mixins/icons';
+
+.root {
+  cursor: pointer;
+
+  &::before {
+    @include copy;
+    display: block;
+    content: '';
+  }
+}

@@ -1,0 +1,25 @@
+@import '../../styles/variables/colors';
+
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.root {
+  width: 100%;
+  min-height: 100%;
+}
+
+.face {
+  background-image: linear-gradient(to left, #308af7, $submit-700);
+}
+
+.how_it_works{
+  background-color: $white;
+}
+.advantages{
+  background-color: $pale-grey;
+}
+.footer{
+  background-color: $basic-900;
+}

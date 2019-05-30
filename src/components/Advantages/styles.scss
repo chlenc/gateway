@@ -1,0 +1,32 @@
+@import "../../styles/variables/colors";
+@import "../../styles/mixins/icons";
+@import "../../styles/fonts";
+
+.root {
+  background-color: $pale-grey;
+  padding: 115px 198px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.advBlock {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 256px;
+}
+
+.infIcon{
+  @include example-2-48-submit-400;
+  margin-bottom: 24px;
+}
+
+.headerFont{
+  @include header-basic900;
+  margin-bottom: 16px;
+}
+
+.captionFont{
+  @include caption-basic-500Center;
+}
