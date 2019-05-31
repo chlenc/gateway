@@ -3,10 +3,15 @@
 @import "../../styles/mixins/icons";
 
 .root {
-  padding: 112px 166px;
+  padding: 112px 0;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  background-color: $white;
+  width: 1110px;
+  margin: auto;
 }
+
 
 .howItWorksBlock {
   display: flex;
@@ -24,17 +29,19 @@
   padding-top: 100px;
 }
 
-.wbIcon{
+.wbIcon {
   @include illustration-wb;
+  width: 240px;
+  background-repeat: no-repeat;
 }
 
 .header1Font {
-  @include Headline-basic-900BoldLeft;
+  @include Headline-2Basic900Left;
   padding-bottom: 64px;
 }
 
 .header2Font {
-  @include Headline-Basic900Left;
+  @include Headline-1Basic900Left;
   text-align: left;
   padding-bottom: 48px;
 }
@@ -43,29 +50,37 @@
   margin-bottom: 24px;
   display: flex;
   align-items: center;
-  @include caption-basic-900;
+  @include Body-1Basic900Left;
 }
 
-.caption1Font{
-@include caption-basic-600;
+.caption1Font {
+  @include Body-1Basic500Left;
   padding: 24px 0 8px 0;
 }
-.caption2Font{
-  @include caption-basic-600;
+
+.caption2Font {
+  @include Body-1Basic500Left;
 }
-.caption3Font{
-  @include caption-basic-500Center;
+
+.caption3Font {
+  @include Body-1Basic500Centr;
   width: 320px;
   padding: 32px 0;
 }
-.takeBtn{
-  @include caption-submit-400;
+
+.takeBtn {
+  @include Body-2Submit400Left;
   display: flex;
+  align-items: flex-end;
+  user-select: none;
+  cursor: pointer;
 }
-.arrow{
-  margin-left: 9px;
-  //@include arrow
+
+.arrow {
+  @include arrow-20-submit-400;
+  margin-left: 8px;
 }
+
 .oval {
   background-color: $submit-400;
   min-width: 12px;

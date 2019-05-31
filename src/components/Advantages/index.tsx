@@ -1,13 +1,6 @@
 import React from 'react';
 import styles from './styles.scss';
 
-
-type TAdvantage = {
-    icon: string
-    header: string
-    caption: string
-}
-
 export default class Advantages extends React.Component {
 
     render(): React.ReactNode {

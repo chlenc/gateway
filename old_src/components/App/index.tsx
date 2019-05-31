@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router';
 // import DevTools from 'mobx-react-devtools';
 
-import Root from '@components/Root';
-import NotFound from '@components/NotFound';
+import Root from '@components/App';
+// import NotFound from '@components/NotFound';
 
 interface IProps {}
 
@@ -17,7 +17,7 @@ class App extends Component<IProps> {
           component={Root}
         />
 
-        <Route component={NotFound}/>
+        {/*<Route component={NotFound}/>*/}
       </Switch>
     );
   }

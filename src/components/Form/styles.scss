@@ -1,5 +1,7 @@
 @import "../../styles/fonts";
 @import "../../styles/variables/colors";
+@import "../../styles/mixins/icons";
+
 .root {
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
   background-color: $white;
@@ -9,10 +11,196 @@
   padding: 48px;
 }
 
-//.header1Font{
-// @include header-header-basic900-line-height075;
-//}
-//
-//.header2Font{
-// @include Body-3Basic900Left;
-//}
+.header1Font {
+  @include Body-4Basic900Centr;
+  padding-bottom: 48px;
+}
+
+.header2Font {
+  @include Body-0Basic900Left;
+  padding-bottom: 16px;
+}
+
+.captionFont {
+  @include Body-0Basic600Left;
+}
+
+.calculateField {
+  display: flex;
+  padding-bottom: 32px;
+}
+
+.calculateField_col {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.inputField {
+  display: flex;
+  margin-top: 8px;
+  position: relative;
+
+  input {
+    width: 151px;
+    height: 36px;
+    border: solid 1px $basic-200;
+    border-radius: 0 4px 4px 0;
+    outline: none;
+    border-left: none;
+    padding: 0 28px 0 14px;
+    @include Body-0Basic900Left;
+  }
+}
+
+.wavesIcn {
+  @include waves-18-submit-400;
+  width: 36px;
+  height: 36px;
+  background-repeat: no-repeat;
+  border-radius: 4px 0 0 4px;
+  background-position: center;
+  border: solid 1px $basic-200;
+}
+
+.btcIcn {
+  @include bitcoin-18;
+  width: 36px;
+  height: 36px;
+  background-repeat: no-repeat;
+  border-radius: 4px 0 0 4px;
+  background-position: center;
+  border: solid 1px $basic-200;
+}
+
+.btcHelpIcn {
+  @include help-22-submit-400;
+  min-width: 22px;
+  min-height: 23px;
+  top: 7px;
+  left: 158px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.termInfField {
+  display: flex;
+  flex-direction: column;
+}
+
+.termInfField_buttonSet {
+  display: flex;
+  margin-bottom: 54px;
+}
+
+%checkbox {
+  width: 393px;
+  height: 36px;
+  border: solid 1px $basic-200;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 300;
+  color: $basic-900;
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+%checkbox_selected {
+  border: solid 1px $submit-500;
+  color: $submit-400;
+}
+
+.leftCheckbox {
+  @extend %checkbox;
+  border-radius: 4px 0 0 4px;
+  border-right: none;
+}
+
+.leftCheckbox_selected {
+  @extend %checkbox;
+  @extend %checkbox_selected;
+  border-radius: 4px 0 0 4px;
+}
+
+.rightCheckbox {
+  @extend %checkbox;
+  border-radius: 0 4px 4px 0;
+  border-left: none;
+}
+
+.rightCheckbox_selected {
+  @extend %checkbox;
+  @extend %checkbox_selected;
+  border-radius: 0 4px 4px 0;
+}
+
+.rateField {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 38px;
+
+}
+
+.flex{
+  display: flex;
+}
+
+.rateField_row {
+  display: flex;
+  margin-bottom: 12px;
+  @include Body-0Basic600Left;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.yellowCaption{
+  @include Caption-1Warning400Left;
+  padding-bottom: 16px;
+}
+
+.rateHelpIcn {
+  @include help-22-submit-400;
+  min-width: 22px;
+  min-height: 23px;
+  margin-left: 4px;
+  cursor: pointer;
+}
+
+
+.rateFont {
+  font-family: Roboto;
+  font-size: 14px;
+  text-align: right;
+  color: $basic-900;
+  display: flex;
+}
+
+.rateFont_waves {
+  color: $submit-400;
+}
+
+.rateFont_btc {
+  color: $warning-600;
+}
+
+.submitBnt{
+  width: 190px;
+  height: 40px;
+  border-radius: 4px;
+  background-color: $submit-400;
+  @include Body-0Basic600Centr;
+  outline: none;
+  user-select: none;
+  border: none;
+  cursor: pointer;
+  &:disabled{
+    background-color: $submit-100;
+    cursor: not-allowed;
+  }
+}
+
+.btnField{
+  display: flex;
+  justify-content: space-between;
+}

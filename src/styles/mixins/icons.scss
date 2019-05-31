@@ -4,6 +4,13 @@
   background-size: contain;
 }
 
+@mixin arrow-20-submit-400 {
+  @include icon;
+  width: 20px;
+  height: 20px;
+  background: url("../../assets/icons/arrow-20-submit-400.svg");
+}
+
 @mixin bg {
   @include icon;
   width: 982px;

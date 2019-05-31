@@ -1,0 +1,103 @@
+@import '../../styles/variables/colors';
+@import '../../styles/mixins/icons';
+@import '../../styles/fonts';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  border-bottom: solid 1px rgba(215, 215, 215, 0.17);
+  flex-wrap: wrap;
+
+}
+
+.header_sign {
+  @include Body-0WhiteRight;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.header_logo {
+  @include logo
+}
+
+
+.header_signIcon {
+  @include login-32-white;
+  margin-right: 10px;
+}
+
+
+.bg{
+    background-image: linear-gradient(to left, #308af7, $submit-700);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+
+}
+
+.body {
+  display: flex;
+  align-items: center;
+  padding: 80px 0 40px;
+  flex-wrap: wrap;
+  width: 1110px;
+}
+
+.handIcon {
+  @include example-48-white;
+  margin-right: 16px;
+}
+
+.footer {
+  @include bg;
+  background-repeat: repeat-x;
+  width: 100%;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  flex: 1;
+}
+
+.headerFont {
+  @include Headline-2WhiteLeft;
+  margin-bottom: 24px;
+}
+
+.captionFont {
+  width: 493px;
+  height: 93px;
+  @include Body-3Submit200Left;
+  margin-bottom: 72px;
+}
+
+.itemFont {
+
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  @include Body-1WhiteLeft;
+
+  &:last-child {
+    margin-bottom: 0;
+
+  }
+}

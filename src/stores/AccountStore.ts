@@ -1,268 +1,184 @@
-import {
-  observable,
-  action,
-  computed,
-  autorun,
-  set
-} from 'mobx';
+import { action, autorun, computed, observable, set } from 'mobx';
 
-import axios from 'axios';
-
-import { RootStore } from './RootStore';
+import { RootStore } from '@stores';
 import { SubStore } from './SubStore';
 
 import { getCurrentBrowser } from '@utils';
 
 const defaultApplicationAccount = {
-  votes: [],
-  balance: 0
+    votes: [],
+    balance: 0
 };
 
 interface IWavesKeeperAccount {
-  address: string
-  name: string
-  network: string
-  networkCode: string
-  publicKey: string
-  type: string
-  balance: {
-    available: string
-    leasedOut: string
+    address: string
+    name: string
     network: string
-  }
+    networkCode: string
+    publicKey: string
+    type: string
+    balance: {
+        available: string
+        leasedOut: string
+        network: string
+    }
 }
 
 interface IVote {
-  txId: string;
-  score: number;
-  assetId: string;
-  assetName: string;
-  sender: string;
-  timestamp: number;
-  createdAt: Date;
+    txId: string;
+    score: number;
+    assetId: string;
+    assetName: string;
+    sender: string;
+    timestamp: number;
+    createdAt: Date;
 }
 
 interface IApplicationAccount {
-  votes: IVote[]
-  balance: number
+    votes: IVote[]
+    balance: number
 }
 
 interface IKeeperError {
-  code: string
-  data: any
-  message: string
+    code: string
+    data: any
+    message: string
 }
 
 class AccountStore extends SubStore {
-  @observable applicationNetwork: string = 'testnet';
-  @observable applicationAccount: IApplicationAccount = defaultApplicationAccount;
-  @observable wavesKeeperAccount?: IWavesKeeperAccount;
-  @observable isWavesKeeperLocked: boolean = true;
-  @observable isWavesKeeperInitialized: boolean = false;
-  @observable isWavesKeeperInstalled: boolean = false;
-  @observable isApplicationAuthorizedInWavesKeeper: boolean = false;
+    @observable applicationNetwork: string = 'custom';
+    @observable applicationAccount: IApplicationAccount = defaultApplicationAccount;
+    @observable wavesKeeperAccount?: IWavesKeeperAccount;
 
-  @observable isWavesKeeperAccountUpdatePending: boolean = false;
-  @observable isWavesKeeperSetupPending: boolean = true;
-  @observable isApplicationAuthorizationPending: boolean = true;
-  
-  constructor(rootStore: RootStore) {
-    super(rootStore);
+    @observable isWavesKeeperInitialized: boolean = false;
+    @observable isWavesKeeperInstalled: boolean = false;
 
-    if (['tokenrating.wavesexplorer.com', 'tokenrating.philsitumorang.com'].includes(window.location.host)) {
-      this.applicationNetwork = 'mainnet';
-    }
-  }
+    @observable isWavesKeeperLocked: boolean = true;
+    @observable isApplicationAuthorizedInWavesKeeper: boolean = false;
 
-  @computed 
-  get isWavesKeeperEmpty(): boolean {
-    return this.wavesKeeperAccount
-      ? false
-      : true;
-  }
 
-  @computed 
-  get isBrowserSupportsWavesKeeper(): boolean {
-    const browser = getCurrentBrowser();
-
-    return ['chrome', 'firefox', 'opera', 'edge'].includes(browser);
-  }
-
-  @computed 
-  get isSupportedAccountNetwork(): boolean {
-    if (this.wavesKeeperAccount) {
-      return this.wavesKeeperAccount!.network === this.applicationNetwork;
+    constructor(rootStore: RootStore) {
+        super(rootStore);
     }
 
-    return false;
-  }
-
-  @computed
-  get hasEnoughBalance () {
-    return this.applicationAccount!.balance < 1
-      ? false
-      : true;
-  }
-
-  @action
-  resetApplicationAccount = () => {
-    this.applicationAccount.votes = [];
-    this.applicationAccount.balance = 0;
-  }
-
-  @action
-  updateApplicationAccount = async () => {
-    if (this.wavesKeeperAccount) {
-      const { address } = this.wavesKeeperAccount;
-
-      try {
-        this.isWavesKeeperAccountUpdatePending = true;
-
-        let [balance, votes]: [number, IVote[]] = await Promise.all([
-          this.getApplicationAccountBalance(address),
-          this.getApplicationAccountVotes(address)
-        ]);
-
-        this.applicationAccount.balance = balance;
-        this.applicationAccount.votes = votes;
-        this.isWavesKeeperAccountUpdatePending = false;
-
-      } catch (error) {
-        this.isWavesKeeperAccountUpdatePending = false;
-      }
+    @computed
+    get isWavesKeeperEmpty(): boolean {
+        return !this.wavesKeeperAccount;
     }
-  }
 
-  getApplicationAccountBalance = (address: string) => {
-    return axios.get(`/api/v1/account/asset/balance?address=${address}`)
-      .then((res) => res.data.balance)
-      .catch((error) => console.error(error));
-  }
+    @computed
+    get isBrowserSupportsWavesKeeper(): boolean {
+        const browser = getCurrentBrowser();
 
-  getApplicationAccountVotes = (address: string) => {
-    return axios.get(`/api/v1/account?sender=${address}`)
-      .then((res) => res.data.votes)
-      .catch((error) => console.error(error));
-  }
-
-  @action
-  updateWavesKeeperAccount = (account: IWavesKeeperAccount) => {
-    this.wavesKeeperAccount && set(this.wavesKeeperAccount, {
-      ...account
-    });
-  }
-
-  @action
-  resetWavesKeeperAccount = () => {
-    this.wavesKeeperAccount = undefined;
-  }
-
-  @action
-  async updateWavesKeeper(publicState: any) {
-    this.isWavesKeeperLocked = publicState.locked;
-
-    if (this.wavesKeeperAccount) {
-      publicState.account
-        ? this.updateWavesKeeperAccount(publicState.account)
-        : this.resetWavesKeeperAccount();
-    } else {
-      this.wavesKeeperAccount = publicState.account;
+        return ['chrome', 'firefox', 'opera', 'edge'].includes(browser);
     }
-  }
-  
-  setupWavesKeeper = () => {
-    let attemptsCount = 0;
 
-    autorun(
-      (reaction) => {
-        if (attemptsCount === 2) {
-          reaction.dispose();
-
-          this.isWavesKeeperSetupPending = false;
-        } else if (window['WavesKeeper']) {
-          reaction.dispose();
-
-          this.isWavesKeeperSetupPending = false;
-          this.isWavesKeeperInstalled = true;
-        } else {
-          attemptsCount += 1;
+    @computed
+    get isSupportedAccountNetwork(): boolean {
+        if (this.wavesKeeperAccount) {
+            return this.wavesKeeperAccount!.network === this.applicationNetwork;
         }
-      },
-      { scheduler: run => setInterval(run, 1000)}
-    );
-  }
+        return false;
+    }
 
-  @action
-  setupSynchronizationWithWavesKeeper = () => {
-    window['WavesKeeper'].initialPromise
-      .then(keeperApi => {
-        this.isWavesKeeperInitialized = true;
 
-        return keeperApi;
-      })
-      .then(keeperApi => keeperApi.publicState())
-      .then(publicState => {        
-        this.isApplicationAuthorizedInWavesKeeper = true;
-        this.isApplicationAuthorizationPending = false;
-
-        this.updateWavesKeeper(publicState);
-
-        this.subscribeToWavesKeeperUpdate();
-      })
-      .catch((error: IKeeperError) => {
-        if (error.code === '12') {
-          this.isApplicationAuthorizedInWavesKeeper = false;
-          this.isApplicationAuthorizationPending = false;
-        }
-
-        if (error.code === '14') {
-          this.isWavesKeeperLocked = false;
-
-          this.isApplicationAuthorizedInWavesKeeper = true;
-          this.isApplicationAuthorizationPending = false;
-
-          this.subscribeToWavesKeeperUpdate();
-        }
-      });
-  }
-
-  subscribeToWavesKeeperUpdate() {
-    window['WavesKeeper'].on('update', async (publicState: any) => {
-      this.updateWavesKeeper(publicState);
-    });
-  }
-
-  runWavesKeeperAccountChangeReaction = () => {
-    autorun(() => {
-      const wavesKeeperAccount = this.wavesKeeperAccount;
-
-      if (wavesKeeperAccount && wavesKeeperAccount.address) {
-        this.updateApplicationAccount();
-      } else {
-        this.resetApplicationAccount();
-      }
-    });
-  }
-
-  // watch for application authorization status in waves keeper
-  runApplicationAuthorizationStatusWatcher = () => {
-    autorun(
-      () => {        
-        window['WavesKeeper'].publicState()
-          .then((publicState) => {
-            this.isApplicationAuthorizedInWavesKeeper = true;
-
-            this.updateWavesKeeper(publicState);
-          })
-          .catch((error: IKeeperError) => {
+    @action
+    login = () => (window['WavesKeeper']).auth({data: ''})
+        .then(e => console.log(e))
+        .catch((error: IKeeperError) => {
             if (error.code === '12') {
-              this.isApplicationAuthorizedInWavesKeeper = false;
+                this.isWavesKeeperLocked = true;
+                this.isApplicationAuthorizedInWavesKeeper = false;
             }
-          });
-      },
-      { scheduler: run => setInterval(run, 1000)}
-    );
-  }
+
+            if (error.code === '14') {
+                this.isWavesKeeperLocked = false;
+                this.isApplicationAuthorizedInWavesKeeper = true;
+            }
+        });
+
+
+    @action
+    updateWavesKeeperAccount = (account: IWavesKeeperAccount) => {
+        this.wavesKeeperAccount && set(this.wavesKeeperAccount, {
+            ...account
+        });
+    };
+
+    @action
+    resetWavesKeeperAccount = () => {
+        this.wavesKeeperAccount = undefined;
+    };
+
+    @action
+    async updateWavesKeeper(publicState: any) {
+        this.isWavesKeeperLocked = publicState.locked;
+
+        if (this.wavesKeeperAccount) {
+            publicState.account
+                ? this.updateWavesKeeperAccount(publicState.account)
+                : this.resetWavesKeeperAccount();
+        } else {
+            this.wavesKeeperAccount = publicState.account;
+        }
+    }
+
+    setupWavesKeeper = () => {
+        let attemptsCount = 0;
+
+        autorun(
+            (reaction) => {
+                if (attemptsCount === 2) {
+                    reaction.dispose();
+
+                } else if (window['WavesKeeper']) {
+                    reaction.dispose();
+
+                    this.isWavesKeeperInstalled = true;
+                } else {
+                    attemptsCount += 1;
+                }
+            },
+            {scheduler: run => setInterval(run, 1000)}
+        );
+    };
+
+    @action
+    setupSynchronizationWithWavesKeeper = () => {
+        window['WavesKeeper'].initialPromise
+            .then(keeperApi => {
+                this.isWavesKeeperInitialized = true;
+
+                return keeperApi;
+            })
+            .then(keeperApi => keeperApi.publicState())
+            .then(publicState => {
+                this.isApplicationAuthorizedInWavesKeeper = true;
+
+                this.updateWavesKeeper(publicState).catch(e => console.error(e));
+
+                this.subscribeToWavesKeeperUpdate();
+            })
+            .catch((error: IKeeperError) => {
+                if (error.code === '12') {
+                    this.isWavesKeeperLocked = true;
+                    this.isApplicationAuthorizedInWavesKeeper = false;
+                }
+
+                if (error.code === '14') {
+                    this.isWavesKeeperLocked = false;
+                    this.isApplicationAuthorizedInWavesKeeper = true;
+                    this.subscribeToWavesKeeperUpdate();
+                }
+            });
+    };
+
+    subscribeToWavesKeeperUpdate() {
+        window['WavesKeeper'].on('update', async (publicState: any) => {
+            this.updateWavesKeeper(publicState).catch(e => console.error(e));
+        });
+    }
+
 }
 
 export default AccountStore;

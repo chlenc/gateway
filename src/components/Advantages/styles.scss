@@ -3,11 +3,11 @@
 @import "../../styles/fonts";
 
 .root {
-  background-color: $pale-grey;
-  padding: 115px 198px;
+  padding: 115px 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
+  background-color: $pale-grey;
 }
 
 .advBlock {
@@ -15,18 +15,23 @@
   display: flex;
   flex-direction: column;
   width: 256px;
+  margin-right: 138px;
+
+  &:last-child{
+    margin-right: 0;
+  }
 }
 
-.infIcon{
+.infIcon {
   @include example-2-48-submit-400;
   margin-bottom: 24px;
 }
 
-.headerFont{
-  @include header-basic900;
+.headerFont {
+  @include Body-3Basic900Centr;
   margin-bottom: 16px;
 }
 
-.captionFont{
-  @include caption-basic-500Center;
+.captionFont {
+  @include Body-1Basic500Centr;
 }

@@ -10,7 +10,7 @@
     "@types/jest": "^24.0.11",
     "@types/node": "^11.13.4",
     "@types/react-intl": "^2.3.17",
-    "antd": "^3.13.2",
+    "@waves/waves-transactions": "^3.7.2",
     "axios": "^0.18.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",

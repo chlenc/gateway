@@ -1,0 +1,11 @@
+@import '../../styles/variables/colors';
+
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.root {
+  width: 100%;
+  min-height: 100%;
+}

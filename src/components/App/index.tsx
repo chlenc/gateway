@@ -1,25 +1,36 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router';
-// import DevTools from 'mobx-react-devtools';
+import { inject, observer } from 'mobx-react';
 
-import Root from '@components/Root';
 
-interface IProps {}
+import styles from './styles.scss';
+import Face from '@components/Head';
+import HowItWorks from '@src/components/HowItWorks';
+import Advantages from '@src/components/Advantages';
+import Footer from '@src/components/Footer';
+import AccountStore from '@stores/AccountStore';
 
+interface IProps {
+    accountStore?: AccountStore
+}
+
+@inject('accountStore')
+@observer
 class App extends Component<IProps> {
-  render() {
-    return (
-      <Switch>
-        <Route
-          exact={true}
-          path={['/']}
-          component={Root}
-        />
 
-        {/*<Route component={NotFound}/>*/}
-      </Switch>
-    );
-  }
+    componentDidMount(): void {
+    this.props.accountStore!.setupWavesKeeper();
+    }
+
+    render() {
+        return (
+            <div className={styles.root}>
+                <Face/>
+                <HowItWorks/>
+                <Advantages/>
+                <Footer/>
+            </div>
+        );
+    }
 }
 
 export default App;

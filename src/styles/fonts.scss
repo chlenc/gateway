@@ -13,459 +13,212 @@
     See the License for the specific language governing permissions and
     limitations under the License.
  */
-@import '../styles/variables/colors';
 
+@import "./variables/colors";
 
-@mixin Caption-white500Center {
-  font-family: Roboto;
-  font-size: 14px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
-  color: $white;
-}
-
-
-@mixin Headline-WhiteBoldLeft {
+@mixin Headline-2WhiteLeft {
   font-family: Roboto;
   font-size: 32px;
   font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: $white;
-
-}
-
-@mixin Caption-whiteNormalLeft {
-  font-family: Roboto;
-  font-size: 20px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.6;
-  letter-spacing: normal;
-  color: #a0c9ff;
-}
-
-@mixin Caption-white500Left {
-  font-family: Roboto;
-  font-size: 16px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
   color: $white;
 }
 
-@mixin Headline-basic-900BoldLeft {
+@mixin Headline-2Basic900Left {
   font-family: Roboto;
   font-size: 32px;
   font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
   color: $basic-900;
 }
 
-@mixin caption-basic-900 {
-  font-family: Roboto;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.5;
-  letter-spacing: normal;
-  color: $basic-900;
-}
-
-@mixin caption-basic-600 {
-  font-family: Roboto;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.5;
-  letter-spacing: normal;
-  color: $basic-600;
-}
-@mixin caption-basic-500Center {
-  font-family: Roboto;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.5;
-  letter-spacing: normal;
-  text-align: center;
-  color: $basic-500;
-}
-
-@mixin caption-submit-400{
+@mixin Body-2Submit400Left {
   font-family: Roboto;
   font-size: 18px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
   color: $submit-400;
 }
 
-@mixin header-basic900{
+@mixin Body-3Submit200Left {
   font-family: Roboto;
   font-size: 20px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
+  line-height: 1.6;
+  color: $submit-200;
+}
+
+@mixin Body-3Basic900Centr {
+  font-family: Roboto;
+  font-size: 20px;
   color: $basic-900;
 }
 
-.header-header-basic900-line-height075 {
-  width: 166px;
-  height: 18px;
+@mixin Body-4Basic900Centr {
   font-family: Roboto;
   font-size: 24px;
   font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
   line-height: 0.75;
-  letter-spacing: normal;
-  color: $basic-900;
-}
-
-@mixin Headline-Basic900Left {
-  font-family: Roboto;
-  font-size: 20px;
-  font-weight: 500;
   text-align: center;
   color: $basic-900;
 }
 
-
-@mixin Headline-1Basic900Centr {
+@mixin Body-1Basic500Centr {
   font-family: Roboto;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
   text-align: center;
-  color: $basic-900;
-}
-
-@mixin Headline-2Basic-700Left {
-  font-family: Roboto;
-  font-size: 18px;
-  font-weight: bold;
-  color: $basic-700;
+  color: $basic-500;
 }
 
 @mixin Headline-1Basic900Left {
   font-family: Roboto;
   font-size: 20px;
   font-weight: 500;
+  line-height: 1.5;
   color: $basic-900;
-}
-
-@mixin Headline-2Basic900Left {
-  font-family: Roboto;
-  font-size: 18px;
-  font-weight: bold;
-  color: $basic-900;
-}
-
-@mixin Headline-1Basic-700Left {
-  font-family: Roboto;
-  font-size: 20px;
-  font-weight: 500;
-  color: $basic-700;
-}
-
-@mixin Headline-2Basic900Centr {
-  font-family: Roboto;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-  color: $basic-900;
-}
-
-@mixin Headline-2Basic600Left {
-  font-family: Roboto;
-  font-size: 18px;
-  font-weight: bold;
-  color: $basic-600;
-}
-
-@mixin Headline-2Basic-700Centr {
-  font-family: Roboto;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-  color: $basic-700;
-}
-
-@mixin Headline-3Warning400Left {
-  font-family: Roboto;
-  font-size: 16px;
-  line-height: 1.25;
-  color: $warning-600;
-}
-
-@mixin Body-1WhiteCentr {
-  font-family: Roboto;
-  font-size: 14px;
-  text-align: center;
-  color: $white;
-}
-
-@mixin Body-2Basic700Left {
-  font-family: Roboto;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 1.29;
-  color: $basic-700;
-}
-
-@mixin Body-1Basic700Centr {
-  font-family: Roboto;
-  font-size: 14px;
-  line-height: 1.29;
-  text-align: center;
-  color: $basic-700;
-}
-
-@mixin Body-1Basic600Centr {
-  font-family: Roboto;
-  font-size: 14px;
-  line-height: 1.29;
-  text-align: center;
-  color: $basic-600;
-}
-
-@mixin Body-1Basic600Right {
-  font-family: Roboto;
-  font-size: 14px;
-  line-height: 1.29;
-  text-align: right;
-  color: $basic-600;
-}
-
-@mixin Body-3Basic700Left {
-  font-family: Roboto;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.29;
-  color: $basic-700;
-}
-
-@mixin Body-1Submit300Right {
-  font-family: Roboto;
-  font-size: 14px;
-  text-align: center;
-  color: $submit-300;
 }
 
 @mixin Body-1Basic500Left {
   font-family: Roboto;
-  font-size: 14px;
-  line-height: 1.29;
+  font-size: 16px;
+  line-height: 1.5;
   color: $basic-500;
-}
-
-@mixin Body-2Basic300Centr {
-  font-family: Roboto;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.29;
-  text-align: center;
-  color: $basic-300;
-}
-
-@mixin Body-2Basic700Centr {
-  font-family: Roboto;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.29;
-  text-align: center;
-  color: $basic-700;
-}
-
-@mixin Body-1Basic600Left {
-  font-family: Roboto;
-  font-size: 14px;
-  line-height: 1.14;
-  color: $basic-600;
-}
-
-@mixin Body-1Basic700Right {
-  font-family: Roboto;
-  font-size: 14px;
-  color: $basic-700;
-}
-
-@mixin Body-1Basic500Right {
-  font-family: Roboto;
-  font-size: 14px;
-  line-height: 1.29;
-  text-align: right;
-  color: $basic-500;
-}
-
-@mixin Body-2Basic-600Left {
-  font-family: Avenir-Roman;
-  font-size: 14px;
-  line-height: 1.29;
-  color: #6d7487;
-}
-
-@mixin Body-1Submit400Left {
-  font-family: Roboto;
-  font-size: 14px;
-  text-align: center;
-  color: $submit-400;
-}
-
-@mixin Body-2Basic900Left {
-  font-family: Roboto;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 1.29;
-  color: $basic-900;
-}
-
-@mixin Body-1Basic600 {
-  font-family: Roboto;
-  font-size: 14px;
-  color: $basic-600;
-}
-
-@mixin Body-3Basic900Left {
-  font-family: Roboto;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.29;
-  color: $basic-900;
 }
 
 @mixin Body-1Basic900Left {
   font-family: Roboto;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1.5;
   color: $basic-900;
 }
 
-@mixin Body-3Disabled400Left {
+@mixin Body-1WhiteLeft {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 500;
+  color: $white;
+}
+
+@mixin Body-0Basic600Left {
   font-family: Roboto;
   font-size: 14px;
-  font-weight: 500;
-  line-height: 1.14;
-  color: $disabled-100;
-}
-
-@mixin Body-1Basic700Centr {
-  font-family: Roboto;
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
-  color: $basic-700;
-}
-
-@mixin Body-1Basic300Centr {
-  font-family: Roboto;
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
-  color: $basic-300;
-}
-
-@mixin Body-2Submit400Right {
-  font-family: Roboto;
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
-  color: $submit-400;
-}
-
-@mixin Caption-1Submit300Right {
-  font-family: Roboto;
-  font-size: 12px;
-  text-align: right;
-  color: $submit-300;
-}
-
-@mixin Caption-1Basic600Right {
-  font-family: Roboto;
-  font-size: 12px;
-  text-align: right;
   color: $basic-600;
 }
 
-@mixin Caption-1Submit300Centr {
+@mixin Caption-1Basic600Left {
   font-family: Roboto;
   font-size: 12px;
-  text-align: center;
-  color: $submit-300;
+  color: $basic-600;
 }
 
-@mixin Body-2Submit400Left {
+@mixin Caption-1Warning400Left {
+  font-family: Roboto;
+  font-size: 12px;
+  color: $warning-400;
+}
+
+@mixin Body-0WhiteRight {
   font-family: Roboto;
   font-size: 14px;
   font-weight: 500;
   text-align: right;
-  color: $submit-400;
+  color: $white;
 }
 
-@mixin Caption-2Basic700Left {
+@mixin Body-0Basic900Left {
   font-family: Roboto;
-  font-size: 12px;
-  font-weight: 500;
-  color: $basic-700;
-}
-
-@mixin Caption-0Basic500Left {
-  font-family: Roboto;
-  font-size: 12px;
-  font-weight: 300;
-  color: $basic-500;
-}
-
-@mixin Caption-1Disabled400Left {
-  font-family: Roboto;
-  font-size: 12px;
-  line-height: 1.5;
-  color: $disabled-100;
-}
-
-@mixin Caption-2Basic900Lef {
-  font-family: Roboto;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   color: $basic-900;
 }
 
-@mixin Caption-1Basic500Left {
+@mixin Body-0Basic600Centr {
   font-family: Roboto;
-  font-size: 12px;
-  color: $basic-500;
-}
-
-@mixin Caption-1Basic500Right {
-  font-family: Roboto;
-  font-size: 12px;
-  text-align: right;
-  color: $basic-500;
-}
-
-@mixin Caption-0Basic300Centr {
-  font-family: Roboto;
-  font-size: 9px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.33;
   text-align: center;
-  color: $submit-300;
+  color: $white;
+}
+
+@mixin Body-1Basic500Left {
+  font-family: Roboto;
+  font-size: 16px;
+  line-height: 1.5;
+  color: $basic-500;
+}
+
+.in-20-days-grace-per {
+  width: 144px;
+  height: 16px;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $submit-400;
+}
+
+.in-20-days-grace-per .text-style-1 {
+  font-weight: bold;
+}
+
+.-days-loan-taken {
+  width: 128px;
+  height: 16px;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $basic-900;
+}
+
+.-days-loan-taken .text-style-1 {
+  font-weight: bold;
+}
+
+.-BTC {
+  width: 116px;
+  height: 16px;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: right;
+  color: $submit-400;
+}
+
+.-BTC .text-style-1 {
+  font-weight: bold;
+  color: $basic-900;
+}
+
+.-BTC .text-style-2 {
+  color: $warning-600;
+}
+
+.Day {
+  width: 98px;
+  height: 16px;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: right;
+  color: $submit-400;
+}
+
+.Day .text-style-1 {
+  font-weight: bold;
+  color: $basic-900;
+}
+
+.Day .text-style-2 {
+  color: $basic-900;
 }

@@ -29,7 +29,7 @@ export default class HowItWorks extends React.Component {
                     term and 20 days of interest-free
                     grace period. Just log in through the keeper and decide on the loan amount.
                 </div>
-                <div className={styles.takeBtn}>Take a loan <div className={styles.arrow}>-></div></div>
+                <div className={styles.takeBtn}>Take a loan <div className={styles.arrow}/></div>
             </div>
         </div>;
     }
