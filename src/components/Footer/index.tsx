@@ -11,19 +11,19 @@ export default class Footer extends React.Component {
                     {[
                         {
                             text: 'Github',
-                            link: '/'
+                            link: 'https://github.com/wavesplatform/waves-loan'
                         },
                         {
                             text: 'Explorer',
-                            link: '/'
+                            link: 'https://wavesexplorer.com/'
                         },
                         {
                             text: 'News',
-                            link: '/'
+                            link: 'https://blog.wavesplatform.com/'
                         },
                         {
                             text: 'About',
-                            link: '/'
+                            link: 'https://wavesplatform.com/'
                         },
                     ].map(({link, text}: { link: string, text: string }, i) =>
                         <a className={styles.link} href={link} target="_blank" key={i}>{text}</a>)}

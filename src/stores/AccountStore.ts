@@ -53,8 +53,8 @@ class AccountStore extends SubStore {
     @observable isWavesKeeperInitialized: boolean = false;
     @observable isWavesKeeperInstalled: boolean = false;
 
-    @observable isWavesKeeperLocked: boolean = true;
     @observable isApplicationAuthorizedInWavesKeeper: boolean = false;
+
 
 
     constructor(rootStore: RootStore) {
@@ -81,23 +81,6 @@ class AccountStore extends SubStore {
         return false;
     }
 
-
-    @action
-    login = () => (window['WavesKeeper']).auth({data: ''})
-        .then(e => console.log(e))
-        .catch((error: IKeeperError) => {
-            if (error.code === '12') {
-                this.isWavesKeeperLocked = true;
-                this.isApplicationAuthorizedInWavesKeeper = false;
-            }
-
-            if (error.code === '14') {
-                this.isWavesKeeperLocked = false;
-                this.isApplicationAuthorizedInWavesKeeper = true;
-            }
-        });
-
-
     @action
     updateWavesKeeperAccount = (account: IWavesKeeperAccount) => {
         this.wavesKeeperAccount && set(this.wavesKeeperAccount, {
@@ -112,7 +95,6 @@ class AccountStore extends SubStore {
 
     @action
     async updateWavesKeeper(publicState: any) {
-        this.isWavesKeeperLocked = publicState.locked;
 
         if (this.wavesKeeperAccount) {
             publicState.account
@@ -130,7 +112,7 @@ class AccountStore extends SubStore {
             (reaction) => {
                 if (attemptsCount === 2) {
                     reaction.dispose();
-
+                    console.error('keeper is not installer');
                 } else if (window['WavesKeeper']) {
                     reaction.dispose();
 
@@ -148,30 +130,25 @@ class AccountStore extends SubStore {
         window['WavesKeeper'].initialPromise
             .then(keeperApi => {
                 this.isWavesKeeperInitialized = true;
-
                 return keeperApi;
             })
             .then(keeperApi => keeperApi.publicState())
             .then(publicState => {
                 this.isApplicationAuthorizedInWavesKeeper = true;
-
                 this.updateWavesKeeper(publicState).catch(e => console.error(e));
-
                 this.subscribeToWavesKeeperUpdate();
             })
             .catch((error: IKeeperError) => {
-                if (error.code === '12') {
-                    this.isWavesKeeperLocked = true;
-                    this.isApplicationAuthorizedInWavesKeeper = false;
-                }
-
                 if (error.code === '14') {
-                    this.isWavesKeeperLocked = false;
                     this.isApplicationAuthorizedInWavesKeeper = true;
                     this.subscribeToWavesKeeperUpdate();
+                } else {
+                    this.isApplicationAuthorizedInWavesKeeper = false;
                 }
             });
     };
+
+    login = () => window['WavesKeeper'].publicState();
 
     subscribeToWavesKeeperUpdate() {
         window['WavesKeeper'].on('update', async (publicState: any) => {

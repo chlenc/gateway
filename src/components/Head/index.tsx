@@ -1,8 +1,11 @@
 import React from 'react';
 import styles from './styles.scss';
 import Form from '@src/components/Form';
-import { inject, observer } from 'mobx-react';
+import SignBtn from '@components/SignBtn';
 import AccountStore from '@stores/AccountStore';
+import { inject, observer } from 'mobx-react';
+import Avatar from '@components/Avatar';
+
 
 interface IProps {
     accountStore?: AccountStore
@@ -10,27 +13,25 @@ interface IProps {
 
 @inject('accountStore')
 @observer
-export default class Head extends React.Component <IProps> {
-
-    handleSign = () => {
-        const accountStore = this.props.accountStore!;
-        if (accountStore!.isWavesKeeperInstalled && !accountStore!.isWavesKeeperInitialized) {
-            accountStore!.setupSynchronizationWithWavesKeeper();
-        }
-        accountStore.login().catch(e => alert(`❌  ${e.message}`));
-    };
+export default class Head extends React.Component<IProps> {
 
     render(): React.ReactNode {
-        const accountStore = this.props.accountStore!;
-        console.log(` isWavesKeeperLocked: ${accountStore.isWavesKeeperLocked}\n isWavesKeeperInitialized: ${accountStore.isWavesKeeperInitialized}\n isWavesKeeperInstalled: ${accountStore.isWavesKeeperInstalled}\n isApplicationAuthorizedInWavesKeeper: ${accountStore.isApplicationAuthorizedInWavesKeeper}\n`);
+        const {wavesKeeperAccount} = this.props.accountStore!;
         return <div className={styles.bg}>
             <div className={styles.h}>
                 <div className={styles.header}>
                     <div className={styles.header_logo}/>
-                    <div className={styles.header_sign} onClick={this.handleSign}>
-                        <div className={styles.header_signIcon}/>
-                        Sign in with Keeper
-                    </div>
+                    {
+                        wavesKeeperAccount
+                            ? <div className={styles.header_sign}>
+                                <Avatar className={styles.header_avatar} address={wavesKeeperAccount.address}/>
+                                {wavesKeeperAccount.address}
+                            </div>
+                            : <SignBtn className={styles.header_sign}>
+                                <div className={styles.header_signIcon}/>
+                                Sign in with Keeper
+                            </SignBtn>
+                    }
                 </div>
                 <div className={styles.body}>
                     <div className={styles.info}>
@@ -46,7 +47,7 @@ export default class Head extends React.Component <IProps> {
                         ].map((item, i) => <ListItem key={i} text={item}/>)}
                     </div>
                     <div className={styles.form}>
-                        <Form onSign={this.handleSign}/>
+                        <Form/>
                     </div>
                 </div>
             </div>

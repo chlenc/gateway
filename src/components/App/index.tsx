@@ -18,7 +18,7 @@ interface IProps {
 class App extends Component<IProps> {
 
     componentDidMount(): void {
-    this.props.accountStore!.setupWavesKeeper();
+        this.props.accountStore!.setupWavesKeeper();
     }
 
     render() {

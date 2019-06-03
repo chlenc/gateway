@@ -39,6 +39,12 @@
 }
 
 
+.header_avatar {
+  border: solid 2px $white;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
 .bg{
     background-image: linear-gradient(to left, #308af7, $submit-700);
     display: flex;
