@@ -1,85 +1,69 @@
 import React from 'react';
 import styles from './styles.scss';
 import SignBtn from '@components/SignBtn';
+import BtcInfo from '@components/Form/BtcInfo';
+import RateInfo from '@components/Form/RateInfo';
 
 interface IState {
     isGracePeriod: boolean
     wavesRate: number
     btcRate: number
-    maxTokenCount: number
-    interestPeriod: number
-    rate?: number
+
 }
 
 interface IProps {
     isLogin: boolean
+    onGetLoan: (u: number) => void
+    interestPeriod: number
+    rate: number
+    maxTokenCount: number
+
 }
+
 
 export default class FreedForm extends React.Component<IProps, IState> {
 
-    dappAddress = '3FjvHCTfkkkEhBoVzDD7N6s6YuyC7gmVVnw';
-    dappAsset = '7LZvLr9A1e4YJCZJMGEGpFu9ZoHfuJ9iNj9iqXqXd93r';
-    nodeUrl = 'https://devnet-aws-ir-2.wavesnodes.com';
 
     state: IState = {
         isGracePeriod: true,
         wavesRate: 0,
         btcRate: 0,
-        maxTokenCount: 0,
-        interestPeriod: 1
     };
 
-    async componentDidMount() {
-        this.getNodeField(`/addresses/data/${this.dappAddress}/rate`, 'rate');
-        this.getNodeField(`/addresses/data/${this.dappAddress}/interestPeriod`, 'interestPeriod');
-
-        const path = `${this.nodeUrl}/assets/balance/${this.dappAddress}/${this.dappAsset}`;
-        const json = await (await fetch(path)).json();
-        if (!json.error) this.setState({maxTokenCount: json.balance});
-
-        // console.dir((await fetch(`${this.nodeUrl}/addresses/data/${this.dappAddress}`)).json());
-    }
-
-    private getNodeField = async (path: string, key: string) => {
-        const json = await (await fetch(`${this.nodeUrl}${path}`)).json();
-        const state = {};
-        if (!json.error) {
-            state[key] = json.value;
-            this.setState(state);
-        }
+    private calculateInterestAmount = () => {
+        const amountInBlock = this.state.wavesRate / this.props.interestPeriod * 1440;
+        return amountInBlock > this.state.wavesRate ? this.state.wavesRate : amountInBlock;
     };
 
-    private calculateInterestAmount = () => this.state.wavesRate / this.state.interestPeriod;
+    private handleOnGracePeriod = () => this.setState({isGracePeriod: true});
 
-    handleOnGracePeriod = () => this.setState({isGracePeriod: true});
+    private handleOffGracePeriod = () => this.setState({isGracePeriod: false});
 
-    handleOffGracePeriod = () => this.setState({isGracePeriod: false});
-
-    handleChangeWavesCount = (e) => {
+    private handleChangeWavesCount = (e) => {
         if (+e.target.value === 0) {
             this.setState({wavesRate: 0, btcRate: 0});
         } else {
             const currentValue = this.checkWavesValue(+e.target.value);
             this.setState({
                 wavesRate: currentValue,
-                btcRate: currentValue / this.state.rate!
+                btcRate: currentValue / this.props.rate!
             });
         }
 
     };
 
-    handleChangeBtcCount = (e) => {
+    private handleChangeBtcCount = (e) => {
         const currentValue = this.checkBtcValue(+e.target.value);
         this.setState({
-            wavesRate: currentValue * this.state.rate!,
+            wavesRate: currentValue * this.props.rate!,
             btcRate: currentValue,
         });
     };
 
     private checkWavesValue = (val: number) => {
         if (val < 0) return 0;
-        if (val > this.state.maxTokenCount * this.state.rate!) {
-            return this.state.maxTokenCount * this.state.rate!;
+        if (val > this.props.maxTokenCount * this.props.rate!) {
+            return this.props.maxTokenCount * this.props.rate!;
         } else {
             return val;
         }
@@ -87,8 +71,8 @@ export default class FreedForm extends React.Component<IProps, IState> {
     };
     private checkBtcValue = (val: number) => {
         if (val < 0) return 0;
-        if (val > this.state.maxTokenCount) {
-            return this.state.maxTokenCount;
+        if (val > this.props.maxTokenCount) {
+            return this.props.maxTokenCount;
         } else {
             return val;
         }
@@ -98,8 +82,8 @@ export default class FreedForm extends React.Component<IProps, IState> {
     handleFocus = (e) => e.target.select();
 
     render(): React.ReactNode {
-        const {isGracePeriod, rate, wavesRate, btcRate} = this.state;
-        const {isLogin} = this.props;
+        const {isGracePeriod, wavesRate, btcRate} = this.state;
+        const {isLogin, onGetLoan, rate} = this.props;
         return <div className={styles.root}>
             <div className={styles.header1Font}>Loan calculator</div>
             <div className={styles.calculateField}>
@@ -129,7 +113,7 @@ export default class FreedForm extends React.Component<IProps, IState> {
                             onFocus={this.handleFocus}
                             value={btcRate}
                         />
-                        <div className={styles.btcHelpIcn}/>
+                        <BtcInfo/>
                     </div>
                 </div>
             </div>
@@ -152,7 +136,7 @@ export default class FreedForm extends React.Component<IProps, IState> {
             </div>
             <div className={styles.rateField}>
                 <div className={styles.rateField_row}>
-                    <div className={styles.flex}>Current rate <div className={styles.rateHelpIcn}/></div>
+                    <div className={styles.flex}>Current rate <RateInfo/></div>
                     <div className={styles.rateFont}>
                         <b className={styles.rateCount}>{wavesRate}</b> &nbsp;
                         <div className={styles.rateFont_waves}>WAVES</div>
@@ -178,7 +162,13 @@ export default class FreedForm extends React.Component<IProps, IState> {
                         Sign in with Keeper
                     </button>
                 </SignBtn>
-                <button disabled={!isLogin} className={styles.submitBnt}>Get a loan</button>
+                <button
+                    disabled={!isLogin}
+                    className={styles.submitBnt}
+                    onClick={() => onGetLoan(wavesRate)}
+                >
+                    Get a loan
+                </button>
             </div>
         </div>;
     }

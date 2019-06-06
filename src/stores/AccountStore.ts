@@ -56,7 +56,6 @@ class AccountStore extends SubStore {
     @observable isApplicationAuthorizedInWavesKeeper: boolean = false;
 
 
-
     constructor(rootStore: RootStore) {
         super(rootStore);
     }
@@ -100,6 +99,9 @@ class AccountStore extends SubStore {
             publicState.account
                 ? this.updateWavesKeeperAccount(publicState.account)
                 : this.resetWavesKeeperAccount();
+            if (publicState.account && publicState.account.address) {
+                this.rootStore.dappStore.updateLoanDetails(publicState.account.address);
+            }
         } else {
             this.wavesKeeperAccount = publicState.account;
         }
@@ -148,7 +150,14 @@ class AccountStore extends SubStore {
             });
     };
 
-    login = () => window['WavesKeeper'].publicState();
+    login = async () => {
+        const resp = window['WavesKeeper'].publicState();
+        const publicState = await resp;
+        if (publicState.account && publicState.account.address) {
+            this.rootStore.dappStore.updateLoanDetails(publicState.account.address);
+        }
+        return resp;
+    };
 
     subscribeToWavesKeeperUpdate() {
         window['WavesKeeper'].on('update', async (publicState: any) => {
