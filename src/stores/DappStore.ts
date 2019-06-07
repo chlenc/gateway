@@ -157,7 +157,7 @@ class DappStore extends SubStore {
     }
 
     startHeightWatcher = () =>
-        autorun((reaction) => this.updateHeight(), {scheduler: run => setInterval(run, 60000)});
+        autorun((reaction) => this.updateHeight(), {scheduler: run => setInterval(run, 30000)});
 
 
 }

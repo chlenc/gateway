@@ -2,7 +2,7 @@ import React from 'react';
 import AccountStore from '@stores/AccountStore';
 import { inject, observer } from 'mobx-react';
 import FreedForm from '@components/Form/FreedForm';
-import LoanedForm from '@components/Form/LoanedForm';
+import LoanedForm, { TDetails } from '@components/Form/LoanedForm';
 import DappStore from '@stores/DappStore';
 
 interface IState {
@@ -25,19 +25,25 @@ export default class Form extends React.Component<IProps, IState> {
         const {wavesKeeperAccount, isApplicationAuthorizedInWavesKeeper: isLogin} = this.props.accountStore!;
         const {
             isLoaned, interestPeriod, maxTokenCount,
-            currentRate, gracePeriod, start, height, deposit, lend
+            currentRate, gracePeriod, start, height, deposit, lend, end_of_freeze, rate
         } = this.props.dappStore!;
-        return isLogin && isLoaned && wavesKeeperAccount != null && start != null && deposit != null && lend != null
+        const details: TDetails | null = end_of_freeze != null
+            ? {
+                rate: +rate!,
+                start: +start!,
+                end_of_freeze: +end_of_freeze,
+                deposit: +deposit!,
+                lend: +lend!,
+            } : null
+        ;
+        return isLogin && isLoaned && wavesKeeperAccount != null && details != null
             ? <LoanedForm
-                balance={+wavesKeeperAccount.balance.available}
-                rate={currentRate}
                 onReturnLoan={this.handleReturnLoan}
-                start={+start}
                 grace={gracePeriod}
                 height={+height}
                 interestPeriod={interestPeriod}
-                deposit={+deposit}
-                lend={+lend}
+                balance={+wavesKeeperAccount.balance.available}
+                details={details}
             />
             : <FreedForm
                 interestPeriod={interestPeriod}
