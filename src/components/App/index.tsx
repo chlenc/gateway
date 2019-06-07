@@ -20,6 +20,7 @@ interface IProps {
 class App extends Component<IProps> {
 
     componentDidMount(): void {
+        console.log('this app worked in https://devnet-aws-ir-2.wavesnodes.com D node');
         this.props.accountStore!.setupWavesKeeper();
         this.props.dappStore!.startHeightWatcher();
     }
