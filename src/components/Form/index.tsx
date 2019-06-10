@@ -51,6 +51,7 @@ export default class Form extends React.Component<IProps, IState> {
                 onGetLoan={this.handleGetLoan}
                 isLogin={isLogin}
                 rate={currentRate}
+                balance={wavesKeeperAccount ? wavesKeeperAccount.balance.available : undefined}
             />;
     }
 }

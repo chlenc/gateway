@@ -17,18 +17,26 @@ interface IProps {
     interestPeriod: number
     rate: number
     maxTokenCount: number
-
+    balance?: string
 }
 
+const m = 100000000;
 
 export default class FreedForm extends React.Component<IProps, IState> {
 
+    componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>): void {
+        prevProps.balance === undefined && this.props.balance && this.setState({
+            wavesRate: this.props.balance ? (+this.props.balance / m) - 1 : 0,
+            btcRate: this.props.balance ? ((+this.props.balance / m) - 1) / this.props.rate! : 0,
+        });
+    }
 
     state: IState = {
         isGracePeriod: true,
-        wavesRate: 0,
-        btcRate: 0,
+        wavesRate: this.props.balance ? (+this.props.balance / m) - 1 : 0,
+        btcRate: this.props.balance ? ((+this.props.balance / m) - 1) / this.props.rate! : 0,
     };
+
 
     private calculateInterestAmount = () => {
         const amountInBlock = this.state.wavesRate / this.props.interestPeriod * 1440;
@@ -61,22 +69,19 @@ export default class FreedForm extends React.Component<IProps, IState> {
     };
 
     private checkWavesValue = (val: number) => {
+        const canPay = this.props.balance ? (+this.props.balance / m) - 1 : 0;
         if (val < 0) return 0;
-        if (val > this.props.maxTokenCount * this.props.rate!) {
-            return this.props.maxTokenCount * this.props.rate!;
-        } else {
-            return val;
-        }
-
+        if (this.props.balance && val > canPay) return canPay;
+        if (val > this.props.maxTokenCount * this.props.rate!) return this.props.maxTokenCount * this.props.rate!;
+        return val;
     };
-    private checkBtcValue = (val: number) => {
-        if (val < 0) return 0;
-        if (val > this.props.maxTokenCount) {
-            return this.props.maxTokenCount;
-        } else {
-            return val;
-        }
 
+    private checkBtcValue = (val: number) => {
+        const canPay = this.props.balance ? (+this.props.balance / m) - 1 : 0;
+        if (val < 0) return 0;
+        if (this.props.balance && val > canPay / this.props.rate!) return canPay / this.props.rate!;
+        if (val > this.props.maxTokenCount) return this.props.maxTokenCount;
+        return val;
     };
 
     handleFocus = (e) => e.target.select();

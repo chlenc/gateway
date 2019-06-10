@@ -5,6 +5,7 @@ import RateInfo from '@components/Form/RateInfo';
 interface IState {
 }
 
+//todo days (blocks)
 interface IProps {
     onReturnLoan: () => void
     balance: number
@@ -26,8 +27,12 @@ const m = 100000000;
 export default class LoanedForm extends React.Component<IProps, IState> {
 
 
-    private calculateInterestAmount = () => {
-        const amountInBlock = (this.props.details.deposit / m) / this.props.interestPeriod //* 1440;
+    private calculateDayInterestAmount = () => {
+        const amountInBlock = (this.props.details.deposit / m) / this.props.interestPeriod * 1440;
+        return amountInBlock > (this.props.details.deposit / m) ? (this.props.details.deposit / m) : amountInBlock;
+    };
+    private calculateBlockInterestAmount = () => {
+        const amountInBlock = (this.props.details.deposit / m) / this.props.interestPeriod;
         return amountInBlock > (this.props.details.deposit / m) ? (this.props.details.deposit / m) : amountInBlock;
     };
 
@@ -37,7 +42,7 @@ export default class LoanedForm extends React.Component<IProps, IState> {
         if (height <= details.start + grace) {
             return details.deposit / m;
         } else if (height > details.start + grace && height <= details.end_of_freeze) {
-            const amountInBlock = this.calculateInterestAmount();
+            const amountInBlock = this.calculateBlockInterestAmount();
             return ((details.deposit) - amountInBlock * (height - details.start + grace)) / m;
         } else {
             return 0;
@@ -45,7 +50,12 @@ export default class LoanedForm extends React.Component<IProps, IState> {
     };
 
 
-    calculateGraceDaysLeft = () => { //blocks
+    calculateGraceDaysLeft = () => {
+        const last = (this.props.details.start + this.props.grace - this.props.height) / 1440;
+        return last > 0 ? last : 0;
+    };
+
+    calculateGraceBlockseft = () => { //blocks
         const last = (this.props.details.start + this.props.grace - this.props.height);
         return last > 0 ? last : 0;
     };
@@ -53,6 +63,8 @@ export default class LoanedForm extends React.Component<IProps, IState> {
     render(): React.ReactNode {
         const {onReturnLoan, balance, details} = this.props;
         const graceDaysLeft = this.calculateGraceDaysLeft();
+        const graceBlocksLeft = this.calculateGraceBlockseft();
+        console.log(balance  , m ,details.rate)
         return <div className={styles.root}>
             <div className={styles.header1Font}>Loan managment details</div>
 
@@ -63,7 +75,8 @@ export default class LoanedForm extends React.Component<IProps, IState> {
                         <div className={styles.rateFont}>
                             <b className={styles.rateCount}>{balance / m}</b> &nbsp;
                             <div className={styles.rateFont_waves}>WAVES</div>
-                            &nbsp;/ &nbsp;<b className={styles.rateCount}>{balance / m / details.rate}</b> &nbsp;
+                            &nbsp;/ &nbsp;
+                            <b className={styles.rateCount}>{balance > 0 ? balance  / m / details.rate : 0}</b> &nbsp;
                             <div className={styles.rateFont_btc}>BTC</div>
                         </div>
                     </div>
@@ -81,16 +94,21 @@ export default class LoanedForm extends React.Component<IProps, IState> {
                     </div>
                     <div className={styles.loanField_row}>
                         Grace days left (blocks)
-                        <b className={styles.rateCount}>{graceDaysLeft}</b>
+                        <div className={styles.rateFont}>
+                            <div className={styles.flex}>
+                                <b className={styles.rateCount}>{graceDaysLeft}</b>&nbsp;days&nbsp;/&nbsp;
+                                <b className={styles.rateCount}>{graceBlocksLeft}</b>&nbsp;blocks
+                            </div>
+                        </div>
                     </div>
                     <div className={styles.loanField_row}>
                         Curent interest ammount
                         <div className={styles.rateFont}>
                             <b className={styles.rateCount}>
-                                {graceDaysLeft === 0 ? this.calculateInterestAmount() : 0}
+                                {graceDaysLeft === 0 ? this.calculateDayInterestAmount() : 0}
                             </b>&nbsp;
                             <div className={styles.rateFont_waves}>WAVES</div>
-                            &nbsp;/ Day (block)
+                            &nbsp;/ Day (<div className={styles.rateCount}>{graceDaysLeft === 0 ? this.calculateBlockInterestAmount() : 0}</div>)
                         </div>
                     </div>
                 </div>
