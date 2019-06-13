@@ -18,8 +18,8 @@ export default class Advantages extends React.Component {
                 },
                 {
                     icon: styles.infIcon,
-                    header: 'Smart contract',
-                    caption: 'Funds are stored on the Waves smart contract.'
+                    header: 'DApp',
+                    caption: 'Funds are stored on the Waves DApp.'
                 }
             ].map(({icon, header, caption}: { icon: string, header: string, caption: string }, i) =>
                 <ListItem key={i} header={header} icon={icon} caption={caption}/>)}

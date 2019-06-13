@@ -35,7 +35,7 @@ export default class Head extends React.Component<IProps> {
                 </div>
                 <div className={styles.body}>
                     <div className={styles.info}>
-                        <div className={styles.headerFont}>Instantly Borrow BTC for WAVES</div>
+                        <div className={styles.headerFont}>Instantly Borrow WBTC for WAVES</div>
                         <div className={styles.captionFont}>The first project on instant cryptocurrency loans from
                             Wavees.
                             You can easily and quickly borrow Bitcoin for Wavees without selling your currency.

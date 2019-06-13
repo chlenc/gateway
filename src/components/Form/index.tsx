@@ -13,12 +13,23 @@ interface IProps {
     dappStore?: DappStore
 }
 
+const m = 100000000;
+
+
 @inject('accountStore', 'dappStore')
 @observer
 export default class Form extends React.Component<IProps, IState> {
 
 
-    handleGetLoan = (u: number) => this.props.dappStore!.borrow(u);
+    handleGetLoan = (u: number) => {
+        const {wavesKeeperAccount} = this.props.accountStore!;
+
+        if (wavesKeeperAccount && ((+wavesKeeperAccount.balance.available / m) - 0.1) >= m) {
+            this.props.dappStore!.borrow(u);
+        }else {
+            alert('insufficient funds');
+        }
+    };
     handleReturnLoan = () => this.props.dappStore!.buyBack();
 
     render(): React.ReactNode {
@@ -52,6 +63,7 @@ export default class Form extends React.Component<IProps, IState> {
                 isLogin={isLogin}
                 rate={currentRate}
                 balance={wavesKeeperAccount ? wavesKeeperAccount.balance.available : undefined}
+                grace={gracePeriod}
             />;
     }
 }

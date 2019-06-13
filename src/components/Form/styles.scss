@@ -9,6 +9,9 @@
   height: 579px;
   border-radius: 4px;
   padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .header1Font {
@@ -19,6 +22,7 @@
 .header2Font {
   @include Body-0Basic900Left;
   padding-bottom: 16px;
+  height: 48px;
 }
 
 .captionFont {
@@ -60,9 +64,9 @@
 }
 
 .rateCount {
-  max-width: 90px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  //max-width: 90px;
+  //overflow: hidden;
+  //text-overflow: ellipsis;
 }
 
 .wavesIcn {
