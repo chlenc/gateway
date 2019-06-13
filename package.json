@@ -149,7 +149,7 @@
     "@types/react-router": "^4.4.5",
     "@types/react-router-dom": "^4.3.2",
     "mobx-react-devtools": "^6.1.1",
-    "ts-loader": "^5.3.3",
+    "ts-loader": "^5.4.5",
     "tslint": "^5.15.0"
   }
 }
