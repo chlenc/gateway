@@ -20,7 +20,7 @@ export default class Head extends React.Component<IProps> {
         return <div className={styles.bg}>
             <div className={styles.h}>
                 <div className={styles.header}>
-                    <div className={styles.header_logo}/>
+                    <div className={styles.header_logoFont}>WAVES to WBTC</div>
                     {
                         wavesKeeperAccount
                             ? <div className={styles.header_sign}>
@@ -36,15 +36,15 @@ export default class Head extends React.Component<IProps> {
                 <div className={styles.body}>
                     <div className={styles.info}>
                         <div className={styles.headerFont}>Instantly Borrow WBTC for WAVES</div>
-                        <div className={styles.captionFont}>The first project on instant cryptocurrency loans from
-                            Wavees.
-                            You can easily and quickly borrow Bitcoin for Wavees without selling your currency.
+                        <div className={styles.captionFont}>Want to get some interesting tokens without selling your
+                            stake? We provide you with an ability to instantly borrow coins on loan terms set in a smart
+                            contract on the decentralized Waves network.
                         </div>
-                        {[
-                            'Affordable interest rates',
-                            'Reliable and safe',
-                            'Simple process of borrowing and repayment',
-                        ].map((item, i) => <ListItem key={i} text={item}/>)}
+                        {/*{[*/}
+                            {/*'Affordable interest rates',*/}
+                            {/*'Reliable and safe',*/}
+                            {/*'Simple process of borrowing and repayment',*/}
+                        {/*].map((item, i) => <ListItem key={i} text={item}/>)}*/}
                     </div>
                     <div className={styles.form}>
                         <Form/>

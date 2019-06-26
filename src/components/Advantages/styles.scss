@@ -26,6 +26,14 @@
   @include example-2-48-submit-400;
   margin-bottom: 24px;
 }
+.sevenIcon {
+  @include days-48-submit-400-copy;
+  margin-bottom: 24px;
+}
+.dappIcon {
+  @include dapps-48-submit-400-copy-2;
+  margin-bottom: 24px;
+}
 
 .headerFont {
   @include Body-3Basic900Centr;

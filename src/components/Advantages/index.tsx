@@ -12,12 +12,12 @@ export default class Advantages extends React.Component {
                     caption: 'We do not have a loan term limit.'
                 },
                 {
-                    icon: styles.infIcon,
+                    icon: styles.sevenIcon,
                     header: '20 days of grace period',
                     caption: 'Taking Bitcoin for Waves and returning it within 20 days, you do not pay interest'
                 },
                 {
-                    icon: styles.infIcon,
+                    icon: styles.dappIcon,
                     header: 'DApp',
                     caption: 'Funds are stored on the Waves DApp.'
                 }

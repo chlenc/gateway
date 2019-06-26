@@ -4,6 +4,13 @@
   background-size: contain;
 }
 
+@mixin days-48-submit-400-copy {
+  @include icon;
+  width: 48px;
+  height: 48px;
+  background: url("../../assets/icons/7-days-48-submit-400-copy.svg");
+}
+
 @mixin arrow-20-submit-400 {
   @include icon;
   width: 20px;
@@ -13,7 +20,7 @@
 
 @mixin bg {
   @include icon;
-  width: 982px;
+  width: 458px;
   height: 129px;
   background: url("../../assets/icons/bg.svg");
 }
@@ -23,6 +30,13 @@
   width: 20px;
   height: 20px;
   background: url("../../assets/icons/bitcoin-18.svg");
+}
+
+@mixin dapps-48-submit-400-copy-2 {
+  @include icon;
+  width: 48px;
+  height: 48px;
+  background: url("../../assets/icons/dapps-48-submit-400-copy-2.svg");
 }
 
 @mixin example-2-48-submit-400 {
@@ -79,6 +93,13 @@
   width: 124px;
   height: 16px;
   background: url("../../assets/icons/poweredbywaves-white-16.svg");
+}
+
+@mixin unlimited-48-submit-400 {
+  @include icon;
+  width: 48px;
+  height: 48px;
+  background: url("../../assets/icons/unlimited-48-submit-400.svg");
 }
 
 @mixin waves-18-submit-400 {

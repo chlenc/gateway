@@ -95,7 +95,9 @@ export default class FreedForm extends React.Component<IProps, IState> {
                 <div className={styles.header1Font}>Loan calculator</div>
                 <div className={styles.calculateField}>
                     <div className={styles.calculateField_col}>
-                        <div className={styles.header2Font}>Your balance {balance || 0} WAVES</div>
+                        <div className={styles.header2Font}>
+                            Amount for deposit{/*Your balance {balance || 0} WAVES*/}
+                        </div>
                         <div className={styles.captionFont}>You pay</div>
                         <div className={styles.inputField}>
                             <div className={styles.wavesIcn}/>
@@ -109,7 +111,9 @@ export default class FreedForm extends React.Component<IProps, IState> {
                         </div>
                     </div>
                     <div className={styles.calculateField_col}>
-                        <div className={styles.header2Font}>DApp balance {maxTokenCount} WBTC</div>
+                        <div className={styles.header2Font}>
+                            Will be borrowed{/*DApp balance {maxTokenCount} WBTC*/}
+                        </div>
                         <div className={styles.captionFont}>You get</div>
                         <div className={styles.inputField}>
                             <div className={styles.btcIcn}/>
