@@ -13,12 +13,12 @@ export default class Advantages extends React.Component {
                 },
                 {
                     icon: styles.sevenIcon,
-                    header: '7-day interest-free period.',
+                    header: '7-day interest-free period',
                     caption: 'If you repay the borrowed amount in 7 days then you won’t pay any charges.'
                 },
                 {
                     icon: styles.dappIcon,
-                    header: 'Trustless design.',
+                    header: 'Trustless design',
                     caption: 'Funds are held in a Waves dApp.'
                 }
             ].map(({icon, header, caption}: { icon: string, header: string, caption: string }, i) =>
