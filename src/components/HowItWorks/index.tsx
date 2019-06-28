@@ -12,8 +12,7 @@ export default class HowItWorks extends React.Component {
         return <div className={styles.root}>
             <div className={styles.howItWorksBlock}>
                 <div className={styles.header1Font}>How it works?</div>
-                <div className={styles.header2Font}>The service is powered by the DApp on the decentralized
-                    decentralized application.
+                <div className={styles.header2Font}>The service is powered by the DApp on the decentralized application.
                 </div>
                 {[
                     'An user signs in with Waves Keeper to borrow WBTC',
@@ -33,7 +32,8 @@ export default class HowItWorks extends React.Component {
             </div>
             <div className={styles.takeLoanBlock}>
                 <div className={styles.wbIcon}/>
-                <div className={styles.caption3Font}>Sign in with Keeper and borrow some WBTC for WAVES with 7 days free of charge period
+                <div className={styles.caption3Font}>Sign in with Keeper and borrow some WBTC for WAVES with 7 days free
+                    of charge period
                 </div>
                 <div onClick={this.scrollToTop} className={styles.takeBtn}>Take a loan <div className={styles.arrow}/>
                 </div>
