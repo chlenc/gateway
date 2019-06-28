@@ -36,14 +36,14 @@ export default class Head extends React.Component<IProps> {
                 <div className={styles.body}>
                     <div className={styles.info}>
                         <div className={styles.headerFont}>Borrow WBTC for WAVES instantly</div>
-                        <div className={styles.captionFont}>Want to get some interesting tokens without selling your
-                            stake? We provide you with an ability to instantly borrow coins on loan terms set in a smart
-                            contract on the decentralized Waves network.
+                        <div className={styles.captionFont}>Want to trade some interesting tokens without selling your
+                            WAVES stake? We provide you with the ability to instantly borrow coins on loan terms set in
+                            a smart contract on the decentralised Waves network.
                         </div>
                         {/*{[*/}
-                            {/*'Affordable interest rates',*/}
-                            {/*'Reliable and safe',*/}
-                            {/*'Simple process of borrowing and repayment',*/}
+                        {/*'Affordable interest rates',*/}
+                        {/*'Reliable and safe',*/}
+                        {/*'Simple process of borrowing and repayment',*/}
                         {/*].map((item, i) => <ListItem key={i} text={item}/>)}*/}
                     </div>
                     <div className={styles.form}>

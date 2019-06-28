@@ -9,17 +9,17 @@ export default class Advantages extends React.Component {
                 {
                     icon: styles.infIcon,
                     header: 'Unlimited loans',
-                    caption: 'Currencies can be borrowed an unlimited number of times'
+                    caption: 'Currencies can be borrowed an unlimited number of times.'
                 },
                 {
                     icon: styles.sevenIcon,
-                    header: '7 days free of charge period',
-                    caption: 'If you will return the borrowed amount in 7 days – you won’t pay interest rates'
+                    header: '7-day interest-free period.',
+                    caption: 'If you repay the borrowed amount in 7 days then you won’t pay any charges.'
                 },
                 {
                     icon: styles.dappIcon,
-                    header: 'DApp',
-                    caption: 'Funds are stored on the Waves DApp'
+                    header: 'Trustless design.',
+                    caption: 'Funds are held in a Waves dApp.'
                 }
             ].map(({icon, header, caption}: { icon: string, header: string, caption: string }, i) =>
                 <ListItem key={i} header={header} icon={icon} caption={caption}/>)}
