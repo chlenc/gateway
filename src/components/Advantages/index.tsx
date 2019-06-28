@@ -13,7 +13,7 @@ export default class Advantages extends React.Component {
                 },
                 {
                     icon: styles.sevenIcon,
-                    header: '20 days of grace period',
+                    header: '7 days of grace period',
                     caption: 'Taking Bitcoin for Waves and returning it within 20 days, you do not pay interest'
                 },
                 {
