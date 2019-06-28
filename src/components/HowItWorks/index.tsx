@@ -11,7 +11,7 @@ export default class HowItWorks extends React.Component {
     render(): React.ReactNode {
         return <div className={styles.root}>
             <div className={styles.howItWorksBlock}>
-                <div className={styles.header1Font}>How it works?</div>
+                <div className={styles.header1Font}>How does it work?</div>
                 <div className={styles.header2Font}>Description: The service is powered by a dApp on the Waves
                     blockchain.
                 </div>
