@@ -14,9 +14,22 @@
   justify-content: space-between;
 }
 
+.slider {
+  margin-bottom: 48px;
+}
+
 .header1Font {
   @include Body-4Basic900Centr;
   padding-bottom: 48px;
+}
+
+.tooltip {
+  padding: 0 5px;
+  @include Body-0WhiteRight;
+}
+
+.railStyle{
+  background-color: $submit-300;
 }
 
 .header2Font {

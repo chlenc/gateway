@@ -3,6 +3,28 @@ import styles from './styles.scss';
 import SignBtn from '@components/SignBtn';
 import BtcInfo from '@components/Form/BtcInfo';
 import RateInfo from '@components/Form/RateInfo';
+import 'rc-slider/assets/index.css';
+import 'rc-tooltip/assets/bootstrap.css';
+import Slider from 'rc-slider';
+import Tooltip from 'rc-tooltip';
+
+const Handle = Slider.Handle;
+
+const handle = (props) => {
+    const { value, dragging, index, ...restProps } = props;
+    return (
+        <Tooltip
+            prefixCls="rc-slider-tooltip"
+            overlay={value}
+            visible={dragging}
+            placement="top"
+            key={index}
+            overlayClassName={styles.tooltip}
+        >
+            <Handle value={value} {...restProps} />
+        </Tooltip>
+    );
+};
 
 interface IState {
     wavesRate: number
@@ -26,8 +48,9 @@ export default class FreedForm extends React.Component<IProps, IState> {
 
     componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>): void {
         prevProps.balance === undefined && this.props.balance && this.setState({
-            wavesRate: this.props.balance ? (+this.props.balance / m) - 1 : 0,
-            btcRate: this.props.balance ? ((+this.props.balance / m) - 1) / this.props.rate! : 0,
+            wavesRate: this.props.balance && (+this.props.balance / m) - 1 > 0 ? (+this.props.balance / m) - 1 : 0,
+            btcRate: this.props.balance && ((+this.props.balance / m) - 1) > 0
+                ? ((+this.props.balance / m) - 1) / this.props.rate! : 0,
         });
     }
 
@@ -42,11 +65,11 @@ export default class FreedForm extends React.Component<IProps, IState> {
         return amountInBlock > this.state.wavesRate ? this.state.wavesRate : amountInBlock;
     };
 
-    private handleChangeWavesCount = (e) => {
-        if (+e.target.value === 0) {
+    private handleChangeWavesCount = (value: number) => {
+        if (value === 0) {
             this.setState({wavesRate: 0, btcRate: 0});
         } else {
-            const currentValue = this.checkWavesValue(+e.target.value);
+            const currentValue = this.checkWavesValue(value);
             this.setState({
                 wavesRate: currentValue,
                 btcRate: currentValue / this.props.rate!
@@ -55,14 +78,14 @@ export default class FreedForm extends React.Component<IProps, IState> {
 
     };
 
-    private get gracePeriodAtDays () {
+    private get gracePeriodAtDays() {
         const degree = this.props.grace / 1440;
         const days = Math.ceil(degree);
         return degree === days ? days : '~' + days;
     }
 
-    private handleChangeBtcCount = (e) => {
-        const currentValue = this.checkBtcValue(+e.target.value);
+    private handleChangeBtcCount = (value: number) => {
+        const currentValue = this.checkBtcValue(value);
         this.setState({
             wavesRate: currentValue * this.props.rate!,
             btcRate: currentValue,
@@ -104,7 +127,7 @@ export default class FreedForm extends React.Component<IProps, IState> {
                             <input
                                 disabled={!rate}
                                 type="number"
-                                onChange={this.handleChangeWavesCount}
+                                onChange={(e) => this.handleChangeWavesCount(+e.target.value)}
                                 onFocus={this.handleFocus}
                                 value={wavesRate}
                             />
@@ -120,7 +143,7 @@ export default class FreedForm extends React.Component<IProps, IState> {
                             <input
                                 disabled={!rate}
                                 type="number"
-                                onChange={this.handleChangeBtcCount}
+                                onChange={(e) => this.handleChangeBtcCount(+e.target.value)}
                                 onFocus={this.handleFocus}
                                 value={btcRate}
                             />
@@ -129,6 +152,17 @@ export default class FreedForm extends React.Component<IProps, IState> {
                     </div>
                 </div>
                 <div className={styles.termInfField}>
+                    <Slider
+                        className={styles.slider}
+                        min={0}
+                        max={maxTokenCount}
+                        defaultValue={btcRate}
+                        value={btcRate}
+                        handle={handle}
+                        trackStyle={{ backgroundColor: 'blue'}}
+                        step={0.000001}
+                        onChange={this.handleChangeBtcCount}
+                    />
                     <div className={styles.header2Font}>Loan terms:</div>
                 </div>
                 <div className={styles.rateField}>

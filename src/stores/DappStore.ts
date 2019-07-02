@@ -3,9 +3,8 @@ import { action, autorun, computed, observable } from 'mobx';
 import { RootStore } from '@stores';
 
 const NODE_URL = 'http://devnet-aws-ir-2.wavesnodes.com';
-const DAPP_ASSET = '7LZvLr9A1e4YJCZJMGEGpFu9ZoHfuJ9iNj9iqXqXd93r';
-const DAPP_ADDRESS = '3FjvHCTfkkkEhBoVzDD7N6s6YuyC7gmVVnw';
-
+const DAPP_ASSET = '7MaWU7wko9vnSqGwCnsHHT3izQuo14LRiYG7guzNqjyF';
+const DAPP_ADDRESS = '3FcMHr5D4VfTLUc7vj5XMnhNC4ncW852jvU';
 
 //waves deposit u/1000000000
 //superBtc lend u/100000000
