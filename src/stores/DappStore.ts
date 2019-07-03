@@ -140,6 +140,25 @@ class DappStore extends SubStore {
         }
     };
 
+
+    @action
+    discard = () => {
+        window['WavesKeeper'].signAndPublishTransaction({
+            type: 16,
+            data: {
+                dApp: DAPP_ADDRESS,
+                fee: {'tokens': '0.05', 'assetId': 'WAVES'},
+                call: {function: 'discard', args: []},
+                payment: [{assetId: null, tokens: 0.01}]
+            }
+        }).then((tx) => {
+            // this.updateLoanDetails(JSON.parse(tx).sender);
+            this.updateDetailsByTxObject(JSON.parse(tx));
+        }).catch((error) => {
+            alert(error.message);
+        });
+    };
+
     @action
     updateDetailsByTxObject(tx: any) {
         const landDetailsMap = ['lend', 'start', 'end_of_freeze', 'rate', 'deposit'];

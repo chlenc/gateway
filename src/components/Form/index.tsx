@@ -23,13 +23,15 @@ export default class Form extends React.Component<IProps, IState> {
 
     handleGetLoan = (u: number) => {
         const {wavesKeeperAccount} = this.props.accountStore!;
-
-        if (wavesKeeperAccount && ((+wavesKeeperAccount.balance.available / m) - 0.1) >= m) {
+        if (wavesKeeperAccount && ((+wavesKeeperAccount.balance.available / m) - 0.1) >= u) {
             this.props.dappStore!.borrow(u);
-        }else {
+        } else {
             alert('insufficient funds');
         }
     };
+
+    handleDiscard = () => this.props.dappStore!.discard();
+
     handleReturnLoan = () => this.props.dappStore!.buyBack();
 
     render(): React.ReactNode {
@@ -50,6 +52,7 @@ export default class Form extends React.Component<IProps, IState> {
         return isLogin && isLoaned && wavesKeeperAccount != null && details != null
             ? <LoanedForm
                 onReturnLoan={this.handleReturnLoan}
+                onDiscard={this.handleDiscard}
                 grace={gracePeriod}
                 height={+height}
                 interestPeriod={interestPeriod}

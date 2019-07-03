@@ -8,6 +8,7 @@ interface IState {
 //todo days (blocks)
 interface IProps {
     onReturnLoan: () => void
+    onDiscard: () => void
     balance: number
     grace: number
     height: number
@@ -61,10 +62,9 @@ export default class LoanedForm extends React.Component<IProps, IState> {
     };
 
     render(): React.ReactNode {
-        const {onReturnLoan, balance, details} = this.props;
+        const {onReturnLoan, balance, details, height} = this.props;
         const graceDaysLeft = this.calculateGraceDaysLeft();
         const graceBlocksLeft = this.calculateGraceBlockseft();
-        console.log(balance  , m ,details.rate)
         return <div className={styles.root}>
             <div className={styles.header1Font}>Loan managment details</div>
 
@@ -76,7 +76,7 @@ export default class LoanedForm extends React.Component<IProps, IState> {
                             <b className={styles.rateCount}>{balance / m}</b> &nbsp;
                             <div className={styles.rateFont_waves}>WAVES</div>
                             &nbsp;/ &nbsp;
-                            <b className={styles.rateCount}>{balance > 0 ? balance  / m / details.rate : 0}</b> &nbsp;
+                            <b className={styles.rateCount}>{balance > 0 ? balance / m / details.rate : 0}</b> &nbsp;
                             <div className={styles.rateFont_btc}>BTC</div>
                         </div>
                     </div>
@@ -108,7 +108,10 @@ export default class LoanedForm extends React.Component<IProps, IState> {
                                 {graceDaysLeft === 0 ? this.calculateDayInterestAmount() : 0}
                             </b>&nbsp;
                             <div className={styles.rateFont_waves}>WAVES</div>
-                            &nbsp;/ Day (<div className={styles.rateCount}>{graceDaysLeft === 0 ? this.calculateBlockInterestAmount() : 0}</div>)
+                            &nbsp;/ Day (
+                            <div
+                                className={styles.rateCount}>{graceDaysLeft === 0 ? this.calculateBlockInterestAmount() : 0}</div>
+                            )
                         </div>
                     </div>
                 </div>
@@ -138,7 +141,17 @@ export default class LoanedForm extends React.Component<IProps, IState> {
                 </div>
 
             </div>
-            <button className={styles.returnBtn} onClick={onReturnLoan}>Return a loan</button>
+            <div className={styles.flexColumn}>
+                <button
+                    className={styles.returnBtn}
+                    onClick={onReturnLoan}
+                    disabled={details.end_of_freeze < height}
+                >Return a loan
+                </button>
+                <div className={styles.yellowCaption}>
+                    or <a onClick={this.props.onDiscard} className={styles.discard}>discard</a> (0.01 WAVES)
+                </div>
+            </div>
         </div>;
     }
 }

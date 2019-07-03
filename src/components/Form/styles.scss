@@ -187,6 +187,7 @@
 .yellowCaption {
   @include Caption-1Warning400Left;
   padding-bottom: 16px;
+  user-select: none;
 }
 
 .rateHelpIcn {
@@ -261,8 +262,18 @@
 .loanField {
   display: flex;
   flex-direction: column;
-  padding-bottom: 80px;
+  //padding-bottom: 80px;
 
+}
+
+.discard{
+  border-bottom: 1px solid $warning-400;
+  cursor: pointer;
+}
+
+.flexColumn{
+  display: flex;
+  flex-direction: column;
 }
 
 .loanField_row {
@@ -285,4 +296,9 @@
   background-color: $submit-400;
   border: none;
   outline: none;
+
+  &:disabled {
+    background-color: $submit-100;
+    cursor: not-allowed;
+  }
 }
