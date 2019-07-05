@@ -2,9 +2,10 @@ import { SubStore } from './SubStore';
 import { action, autorun, computed, observable } from 'mobx';
 import { RootStore } from '@stores';
 
-const NODE_URL = 'http://devnet-aws-ir-2.wavesnodes.com';
-const DAPP_ASSET = '7MaWU7wko9vnSqGwCnsHHT3izQuo14LRiYG7guzNqjyF';
-const DAPP_ADDRESS = '3FcMHr5D4VfTLUc7vj5XMnhNC4ncW852jvU';
+const NODE_URL = 'https://testnodes.wavesnodes.com';
+const DAPP_ASSET = 'ED8edEtbWVhMHNMsHsMiEmmJjyQfmcky7qkUywjjawzY';
+const DAPP_ADDRESS = '3NBgsjXLDDCSJ1S26pQtK2q78rDmt8fDZHJ';
+
 
 //waves deposit u/1000000000
 //superBtc lend u/100000000
@@ -69,7 +70,7 @@ class DappStore extends SubStore {
     @action
     updateMaxTokenCount = async () => {
         const json = await (await fetch(`${NODE_URL}/assets/balance/${DAPP_ADDRESS}/${DAPP_ASSET}`)).json();
-        if (!json.error) this.maxTokenCount = json.balance;
+        if (!json.error) this.maxTokenCount = json.balance / m;
     };
 
     @action
@@ -149,13 +150,13 @@ class DappStore extends SubStore {
                 dApp: DAPP_ADDRESS,
                 fee: {'tokens': '0.05', 'assetId': 'WAVES'},
                 call: {function: 'discard', args: []},
-                payment: [{assetId: null, tokens: 0.01}]
+                payment: []
             }
         }).then((tx) => {
-            // this.updateLoanDetails(JSON.parse(tx).sender);
             this.updateDetailsByTxObject(JSON.parse(tx));
         }).catch((error) => {
             alert(error.message);
+            console.log(error)
         });
     };
 

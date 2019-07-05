@@ -149,7 +149,7 @@ export default class LoanedForm extends React.Component<IProps, IState> {
                 >Return a loan
                 </button>
                 <div className={styles.yellowCaption}>
-                    or <a onClick={this.props.onDiscard} className={styles.discard}>discard</a> (0.01 WAVES)
+                    or <a onClick={this.props.onDiscard} className={styles.discard}>discard</a>
                 </div>
             </div>
         </div>;
