@@ -7,6 +7,7 @@ import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
 import Slider from 'rc-slider';
 import Tooltip from 'rc-tooltip';
+import { round2, round8 } from '@utils';
 
 const Handle = Slider.Handle;
 
@@ -60,10 +61,11 @@ export default class FreedForm extends React.Component<IProps, IState> {
     };
 
 
-    private calculateInterestAmount = () => {
+    private calculateInterestAmountAtDay = () => {
         const amountInBlock = this.state.wavesRate / this.props.interestPeriod * 1440;
         return amountInBlock > this.state.wavesRate ? this.state.wavesRate : amountInBlock;
     };
+    private calculateInterestAmountAtBlock = () => this.state.wavesRate / this.props.interestPeriod ;
 
     private handleChangeWavesCount = (value: number) => {
         if (value === 0) {
@@ -113,6 +115,8 @@ export default class FreedForm extends React.Component<IProps, IState> {
     render(): React.ReactNode {
         const {wavesRate, btcRate} = this.state;
         const {isLogin, onGetLoan, rate, balance, maxTokenCount, grace} = this.props;
+        const interestAmountAtDay = round2(this.calculateInterestAmountAtDay());
+        const interestAmountAtBlock = round2(this.calculateInterestAmountAtBlock());
         return <div className={styles.root}>
             <div>
                 <div className={styles.header1Font}>Loan calculator</div>
@@ -160,7 +164,7 @@ export default class FreedForm extends React.Component<IProps, IState> {
                         value={btcRate}
                         handle={handle}
                         trackStyle={{ backgroundColor: 'blue'}}
-                        step={0.000001}
+                        step={0.01}
                         onChange={this.handleChangeBtcCount}
                     />
                     <div className={styles.header2Font}>Loan terms:</div>
@@ -178,15 +182,34 @@ export default class FreedForm extends React.Component<IProps, IState> {
                     <div className={styles.rateField_row}>
                         Grace period
                         <div className={styles.rateFont}>
-                            <b className={styles.rateCount}>{this.gracePeriodAtDays}</b> &nbsp;Days (&nbsp;
+                            <b className={styles.ratexrCount}>{this.gracePeriodAtDays}</b> &nbsp;Days (&nbsp;
                             <b className={styles.rateCount}>{grace}</b>
                             &nbsp;blocks&nbsp;)
                         </div>
                     </div>
+                    {/*<div className={styles.rateField_row}>*/}
+                        {/*Interest after {this.gracePeriodAtDays} days*/}
+                        {/*<div className={styles.rateFont}>*/}
+                            {/*<b className={styles.rateCount}>~{interestAmount}</b> &nbsp;*/}
+                            {/*<div className={styles.rateFont_waves}>WAVES</div>*/}
+                            {/*&nbsp;/ Day*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
+                </div>
+                <div className={styles.header2Font}>After grace period ends:</div>
+                <div className={styles.rateField}>
                     <div className={styles.rateField_row}>
-                        Interest after {this.gracePeriodAtDays} days
+                        - interest per block:
                         <div className={styles.rateFont}>
-                            <b className={styles.rateCount}>{this.calculateInterestAmount()}</b> &nbsp;
+                            <b className={styles.rateCount}>~{interestAmountAtBlock}</b> &nbsp;
+                            <div className={styles.rateFont_waves}>WAVES</div>
+                            &nbsp;/ Block
+                        </div>
+                    </div>
+                    <div className={styles.rateField_row}>
+                        - interest per day: ~
+                        <div className={styles.rateFont}>
+                            <b className={styles.rateCount}>~{interestAmountAtDay}</b> &nbsp;
                             <div className={styles.rateFont_waves}>WAVES</div>
                             &nbsp;/ Day
                         </div>

@@ -101,3 +101,8 @@ export function copyToClipboard(value) {
 
   return result;
 }
+
+export const round8 = (n) => n.toFixed(8);
+export const round2 = (n) => n.toFixed(2);
+
+
