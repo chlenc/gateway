@@ -35,7 +35,9 @@ export default class Form extends React.Component<IProps, IState> {
     handleReturnLoan = () => this.props.dappStore!.buyBack();
 
     render(): React.ReactNode {
-        const {wavesKeeperAccount, isApplicationAuthorizedInWavesKeeper: isLogin} = this.props.accountStore!;
+        const {wavesKeeperAccount, btcBalance, isApplicationAuthorizedInWavesKeeper: isLogin} = 
+            this.props.accountStore!;
+        console.log(btcBalance)
         const {
             isLoaned, interestPeriod, maxTokenCount,
             currentRate, gracePeriod, start, height, deposit, lend, end_of_freeze, rate
@@ -58,6 +60,7 @@ export default class Form extends React.Component<IProps, IState> {
                 interestPeriod={interestPeriod}
                 balance={+wavesKeeperAccount.balance.available}
                 details={details}
+                btcBalance={btcBalance}
             />
             : <FreedForm
                 interestPeriod={interestPeriod}

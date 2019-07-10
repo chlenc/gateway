@@ -116,7 +116,7 @@ export default class FreedForm extends React.Component<IProps, IState> {
         const {wavesRate, btcRate} = this.state;
         const {isLogin, onGetLoan, rate, balance, maxTokenCount, grace} = this.props;
         const interestAmountAtDay = round2(this.calculateInterestAmountAtDay());
-        const interestAmountAtBlock = round2(this.calculateInterestAmountAtBlock());
+        const interestAmountAtBlock = round8(this.calculateInterestAmountAtBlock());
         return <div className={styles.root}>
             <div>
                 <div className={styles.header1Font}>Loan calculator</div>
@@ -201,15 +201,15 @@ export default class FreedForm extends React.Component<IProps, IState> {
                     <div className={styles.rateField_row}>
                         - interest per block:
                         <div className={styles.rateFont}>
-                            <b className={styles.rateCount}>~{interestAmountAtBlock}</b> &nbsp;
+                            <b className={styles.rateCount}>{interestAmountAtBlock}</b> &nbsp;
                             <div className={styles.rateFont_waves}>WAVES</div>
                             &nbsp;/ Block
                         </div>
                     </div>
                     <div className={styles.rateField_row}>
-                        - interest per day: ~
+                        - interest per day:
                         <div className={styles.rateFont}>
-                            <b className={styles.rateCount}>~{interestAmountAtDay}</b> &nbsp;
+                            <b className={styles.rateCount}>~&nbsp;{interestAmountAtDay}</b> &nbsp;
                             <div className={styles.rateFont_waves}>WAVES</div>
                             &nbsp;/ Day
                         </div>

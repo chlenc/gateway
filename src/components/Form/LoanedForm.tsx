@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './styles.scss';
 import RateInfo from '@components/Form/RateInfo';
 import DiscardInfo from '@components/Form/DiscardInfo';
+import { round8 } from '@utils';
 
 interface IState {
 }
@@ -11,6 +12,7 @@ interface IProps {
     onReturnLoan: () => void
     onDiscard: () => void
     balance: number
+    btcBalance: number
     grace: number
     height: number
     interestPeriod: number
@@ -63,7 +65,7 @@ export default class LoanedForm extends React.Component<IProps, IState> {
     };
 
     render(): React.ReactNode {
-        const {onReturnLoan, balance, details, height} = this.props;
+        const {onReturnLoan, balance, details, height, btcBalance} = this.props;
         const graceDaysLeft = this.calculateGraceDaysLeft();
         const graceBlocksLeft = this.calculateGraceBlockseft();
         return <div className={styles.root}>
@@ -74,10 +76,16 @@ export default class LoanedForm extends React.Component<IProps, IState> {
                     <div className={styles.loanField_row}>
                         You have on your account
                         <div className={styles.rateFont}>
-                            <b className={styles.rateCount}>{balance / m}</b> &nbsp;
+                            <b className={styles.rateCount}>{round8(balance / m)}</b> &nbsp;
                             <div className={styles.rateFont_waves}>WAVES</div>
-                            &nbsp;/ &nbsp;
-                            <b className={styles.rateCount}>{balance > 0 ? balance / m / details.rate : 0}</b> &nbsp;
+
+                        </div>
+                    </div>
+                    <div className={styles.loanField_row}>
+                        &nbsp;
+                        <div className={styles.rateFont}>
+
+                            <b className={styles.rateCount}>{round8(btcBalance / m)}</b> &nbsp;
                             <div className={styles.rateFont_btc}>BTC</div>
                         </div>
                     </div>
@@ -97,7 +105,7 @@ export default class LoanedForm extends React.Component<IProps, IState> {
                         Grace days left (blocks)
                         <div className={styles.rateFont}>
                             <div className={styles.flex}>
-                                <b className={styles.rateCount}>{graceDaysLeft}</b>&nbsp;days&nbsp;/&nbsp;
+                                <b className={styles.rateCount}>~&nbsp;{graceDaysLeft}</b>&nbsp;days&nbsp;/&nbsp;
                                 <b className={styles.rateCount}>{graceBlocksLeft}</b>&nbsp;blocks
                             </div>
                         </div>
@@ -133,6 +141,12 @@ export default class LoanedForm extends React.Component<IProps, IState> {
                         </div>
                     </div>
                     <div className={styles.loanField_row}>
+                        You pay now
+                        <div className={styles.rateFont}>
+                            <b className={styles.rateCount}>{details.lend / m}</b> &nbsp;
+                            <div className={styles.rateFont_btc}>BTC</div>
+                        </div>
+                    </div><div className={styles.loanField_row}>
                         You get back now
                         <div className={styles.rateFont}>
                             <b className={styles.rateCount}>{this.calculateGetBackWaves()}</b> &nbsp;

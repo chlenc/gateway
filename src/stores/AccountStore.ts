@@ -4,6 +4,7 @@ import { RootStore } from '@stores';
 import { SubStore } from './SubStore';
 
 import { getCurrentBrowser } from '@utils';
+import { DAPP_ASSET, NODE_URL } from '@stores/DappStore';
 
 const defaultApplicationAccount = {
     votes: [],
@@ -55,6 +56,14 @@ class AccountStore extends SubStore {
 
     @observable isApplicationAuthorizedInWavesKeeper: boolean = false;
 
+    @observable btcBalance: number = 0;
+
+    // @action
+    updateBTCBalance = async (address: string) => {
+        const json = await (await fetch(`${NODE_URL}/assets/balance/${address}/${DAPP_ASSET}`)).json();
+        if (!json.error) this.btcBalance = json.balance;
+        console.log(json)
+    };
 
     constructor(rootStore: RootStore) {
         super(rootStore);
@@ -85,6 +94,7 @@ class AccountStore extends SubStore {
         this.wavesKeeperAccount && set(this.wavesKeeperAccount, {
             ...account
         });
+
     };
 
     @action
@@ -94,7 +104,7 @@ class AccountStore extends SubStore {
 
     @action
     async updateWavesKeeper(publicState: any) {
-
+        this.updateBTCBalance(publicState.account.address);
         if (this.wavesKeeperAccount) {
             publicState.account
                 ? this.updateWavesKeeperAccount(publicState.account)

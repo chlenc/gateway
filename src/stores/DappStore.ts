@@ -2,9 +2,9 @@ import { SubStore } from './SubStore';
 import { action, autorun, computed, observable } from 'mobx';
 import { RootStore } from '@stores';
 
-const NODE_URL = 'https://testnodes.wavesnodes.com';
-const DAPP_ASSET = 'ED8edEtbWVhMHNMsHsMiEmmJjyQfmcky7qkUywjjawzY';
-const DAPP_ADDRESS = '3N2MgATULesg3Pbc1z77qNaN92FwMGTrFqv';
+export const NODE_URL = 'https://testnodes.wavesnodes.com';
+export const DAPP_ASSET = 'ED8edEtbWVhMHNMsHsMiEmmJjyQfmcky7qkUywjjawzY';
+export const DAPP_ADDRESS = '3N2MgATULesg3Pbc1z77qNaN92FwMGTrFqv';
 
 
 //waves deposit u/1000000000
@@ -156,7 +156,7 @@ class DappStore extends SubStore {
             this.updateDetailsByTxObject(JSON.parse(tx));
         }).catch((error) => {
             alert(error.message);
-            console.log(error)
+            console.log(error);
         });
     };
 
