@@ -4,7 +4,7 @@ import { RootStore } from '@stores';
 
 const NODE_URL = 'https://testnodes.wavesnodes.com';
 const DAPP_ASSET = 'ED8edEtbWVhMHNMsHsMiEmmJjyQfmcky7qkUywjjawzY';
-const DAPP_ADDRESS = '3NBgsjXLDDCSJ1S26pQtK2q78rDmt8fDZHJ';
+const DAPP_ADDRESS = '3N2MgATULesg3Pbc1z77qNaN92FwMGTrFqv';
 
 
 //waves deposit u/1000000000

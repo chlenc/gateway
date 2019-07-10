@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles.scss';
 import RateInfo from '@components/Form/RateInfo';
+import DiscardInfo from '@components/Form/DiscardInfo';
 
 interface IState {
 }
@@ -53,7 +54,7 @@ export default class LoanedForm extends React.Component<IProps, IState> {
 
     calculateGraceDaysLeft = () => {
         const last = (this.props.details.start + this.props.grace - this.props.height) / 1440;
-        return last > 0 ? last : 0;
+        return last > 0 ? Math.round(last) : 0;
     };
 
     calculateGraceBlockseft = () => { //blocks
@@ -102,7 +103,7 @@ export default class LoanedForm extends React.Component<IProps, IState> {
                         </div>
                     </div>
                     <div className={styles.loanField_row}>
-                        Curent interest ammount
+                        Curent interest amount
                         <div className={styles.rateFont}>
                             <b className={styles.rateCount}>
                                 {graceDaysLeft === 0 ? this.calculateDayInterestAmount() : 0}
@@ -148,8 +149,8 @@ export default class LoanedForm extends React.Component<IProps, IState> {
                     disabled={details.end_of_freeze < height}
                 >Return a loan
                 </button>
-                <div className={styles.yellowCaption}>
-                    or <a onClick={this.props.onDiscard} className={styles.discard}>discard</a>
+                <div className={styles.discardCaption}>
+                    or you can&nbsp; <a onClick={this.props.onDiscard} className={styles.discard}>discard</a> &nbsp;the loan <DiscardInfo/>
                 </div>
             </div>
         </div>;
