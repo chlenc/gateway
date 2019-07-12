@@ -7,7 +7,6 @@ import { round8 } from '@utils';
 interface IState {
 }
 
-//todo days (blocks)
 interface IProps {
     onReturnLoan: () => void
     onDiscard: () => void
@@ -30,7 +29,6 @@ export type TDetails = {
 const m = 100000000;
 export default class LoanedForm extends React.Component<IProps, IState> {
 
-
     private calculateDayInterestAmount = () => {
         const amountInBlock = (this.props.details.deposit / m) / this.props.interestPeriod * 1440;
         return amountInBlock > (this.props.details.deposit / m) ? (this.props.details.deposit / m) : amountInBlock;
@@ -49,12 +47,12 @@ export default class LoanedForm extends React.Component<IProps, IState> {
             const amountInBlock = this.calculateBlockInterestAmount();
             return ((details.deposit) - amountInBlock * (height - details.start + grace)) / m;
         } else {
-            return 0;
+            return '-';
         }
     };
 
-
     calculateGraceDaysLeft = () => {
+        if (this.props.details.start === null) return '-';
         const last = (this.props.details.start + this.props.grace - this.props.height) / 1440;
         return last > 0 ? Math.round(last) : 0;
     };
@@ -95,7 +93,7 @@ export default class LoanedForm extends React.Component<IProps, IState> {
                     <div className={styles.loanField_row}>
                         <div className={styles.flex}>Your rate <RateInfo/></div>
                         <div className={styles.rateFont}>
-                            <b className={styles.rateCount}>{details.rate}</b> &nbsp;
+                            <b className={styles.rateCount}>{details.rate && details.rate}</b> &nbsp;
                             <div className={styles.rateFont_waves}>WAVES</div>
                             &nbsp;/ &nbsp;<b className={styles.rateCount}>{1}</b> &nbsp;
                             <div className={styles.rateFont_btc}>BTC</div>
@@ -129,24 +127,25 @@ export default class LoanedForm extends React.Component<IProps, IState> {
                     <div className={styles.loanField_row}>
                         You paid
                         <div className={styles.rateFont}>
-                            <b className={styles.rateCount}>{details.deposit / m}</b> &nbsp;
+                            <b className={styles.rateCount}>{details.deposit && details.deposit / m}</b> &nbsp;
                             <div className={styles.rateFont_waves}>WAVES</div>
                         </div>
                     </div>
                     <div className={styles.loanField_row}>
                         You borrowed
                         <div className={styles.rateFont}>
-                            <b className={styles.rateCount}>{details.lend / m}</b> &nbsp;
+                            <b className={styles.rateCount}>{details.lend && details.lend / m}</b> &nbsp;
                             <div className={styles.rateFont_btc}>BTC</div>
                         </div>
                     </div>
                     <div className={styles.loanField_row}>
                         You pay now
                         <div className={styles.rateFont}>
-                            <b className={styles.rateCount}>{details.lend / m}</b> &nbsp;
+                            <b className={styles.rateCount}>{details.lend && details.lend / m}</b> &nbsp;
                             <div className={styles.rateFont_btc}>BTC</div>
                         </div>
-                    </div><div className={styles.loanField_row}>
+                    </div>
+                    <div className={styles.loanField_row}>
                         You get back now
                         <div className={styles.rateFont}>
                             <b className={styles.rateCount}>{this.calculateGetBackWaves()}</b> &nbsp;
@@ -164,7 +163,8 @@ export default class LoanedForm extends React.Component<IProps, IState> {
                 >Return a loan
                 </button>
                 <div className={styles.discardCaption}>
-                    or you can&nbsp; <a onClick={this.props.onDiscard} className={styles.discard}>discard</a> &nbsp;the loan <DiscardInfo/>
+                    or you can&nbsp; <a onClick={this.props.onDiscard} className={styles.discard}>discard</a> &nbsp;the
+                    loan <DiscardInfo/>
                 </div>
             </div>
         </div>;

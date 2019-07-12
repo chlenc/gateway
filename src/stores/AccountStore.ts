@@ -62,7 +62,6 @@ class AccountStore extends SubStore {
     updateBTCBalance = async (address: string) => {
         const json = await (await fetch(`${NODE_URL}/assets/balance/${address}/${DAPP_ASSET}`)).json();
         if (!json.error) this.btcBalance = json.balance;
-        console.log(json)
     };
 
     constructor(rootStore: RootStore) {

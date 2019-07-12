@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react';
 import FreedForm from '@components/Form/FreedForm';
 import LoanedForm, { TDetails } from '@components/Form/LoanedForm';
 import DappStore from '@stores/DappStore';
+import styles from './styles.scss';
 
 interface IState {
 }
@@ -20,7 +21,6 @@ const m = 100000000;
 @observer
 export default class Form extends React.Component<IProps, IState> {
 
-
     handleGetLoan = (u: number) => {
         const {wavesKeeperAccount} = this.props.accountStore!;
         if (wavesKeeperAccount && ((+wavesKeeperAccount.balance.available / m) - 0.1) >= u) {
@@ -35,9 +35,8 @@ export default class Form extends React.Component<IProps, IState> {
     handleReturnLoan = () => this.props.dappStore!.buyBack();
 
     render(): React.ReactNode {
-        const {wavesKeeperAccount, btcBalance, isApplicationAuthorizedInWavesKeeper: isLogin} = 
+        const {wavesKeeperAccount, btcBalance, isApplicationAuthorizedInWavesKeeper: isLogin} =
             this.props.accountStore!;
-        console.log(btcBalance)
         const {
             isLoaned, interestPeriod, maxTokenCount,
             currentRate, gracePeriod, start, height, deposit, lend, end_of_freeze, rate
@@ -51,6 +50,11 @@ export default class Form extends React.Component<IProps, IState> {
                 lend: +lend!,
             } : null
         ;
+        if (this.props.dappStore!.wait) {
+            return <div className={styles.root}>
+                <div className={styles.load}/>
+            </div>;
+        }
         return isLogin && isLoaned && wavesKeeperAccount != null && details != null
             ? <LoanedForm
                 onReturnLoan={this.handleReturnLoan}

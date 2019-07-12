@@ -1,5 +1,5 @@
 import { SubStore } from './SubStore';
-import { action, autorun, computed, observable } from 'mobx';
+import { action, autorun, computed, IReactionPublic, observable } from 'mobx';
 import { RootStore } from '@stores';
 
 export const NODE_URL = 'https://testnodes.wavesnodes.com';
@@ -26,6 +26,8 @@ class DappStore extends SubStore {
     //
     @observable height: number = 0;
 
+    @observable wait: boolean = false;
+
 
     constructor(rootStore: RootStore) {
         super(rootStore);
@@ -44,10 +46,18 @@ class DappStore extends SubStore {
     }
 
     @action
+    setWait = (wait: boolean) => {
+        console.log(wait);
+        this.wait = wait;
+    };
+
+
+    @action
     updateHeight = async () => {
         const json = await (await fetch(`${NODE_URL}/blocks/height`)).json();
         if (!json.error) this.height = json.height;
     };
+
 
     @action
     updateRate = async () => {
@@ -78,6 +88,9 @@ class DappStore extends SubStore {
         const landDetailsMap = ['lend', 'start', 'rate', 'deposit'];
         const resp = await fetch(`${NODE_URL}/addresses/data/${DAPP_ADDRESS}/end_of_freeze_of_${address}`);
         const json = await (resp).json();
+
+        // if (this.end_of_freeze == json.value) this.setWait(false);
+
         if (json.error || json.value === '0') {
             landDetailsMap.forEach(key => this[key] = null);
             return;
@@ -91,6 +104,7 @@ class DappStore extends SubStore {
             this[key] = (json.value || null);
             return out;
         });
+        return;
     };
 
     private printDappData = async () =>
@@ -102,6 +116,7 @@ class DappStore extends SubStore {
             alert('Your amount cannot be less than or equal to zero.');
             return;
         }
+        this.wait = true;
         window['WavesKeeper'].signAndPublishTransaction({
             type: 16,
             data: {
@@ -111,9 +126,12 @@ class DappStore extends SubStore {
                 payment: [{assetId: null, tokens: u}]
             }
         }).then((tx) => {
-            this.updateDetailsByTxObject(JSON.parse(tx));
+            const transaction = JSON.parse(tx);
+            this.updateDetailsByTxObject(transaction);
+            this.startTxByIdWatcher(transaction);
         }).catch((error) => {
             alert(error.message);
+            this.wait = false;
         });
     };
 
@@ -124,6 +142,7 @@ class DappStore extends SubStore {
             alert('Invalid lend');
             return;
         } else {
+            this.wait = true;
             window['WavesKeeper'].signAndPublishTransaction({
                 type: 16,
                 data: {
@@ -133,10 +152,13 @@ class DappStore extends SubStore {
                     payment: [{assetId: DAPP_ASSET, tokens: +this.lend / m}]
                 }
             }).then((tx) => {
-                // this.updateLoanDetails(JSON.parse(tx).sender);
-                this.updateDetailsByTxObject(JSON.parse(tx));
+                const transaction = JSON.parse(tx);
+                console.log(transaction);
+                this.updateDetailsByTxObject(transaction);
+                this.startTxByIdWatcher(transaction);
             }).catch((error) => {
                 alert(error.message);
+                this.wait = false;
             });
         }
     };
@@ -144,6 +166,7 @@ class DappStore extends SubStore {
 
     @action
     discard = () => {
+        this.wait = true;
         window['WavesKeeper'].signAndPublishTransaction({
             type: 16,
             data: {
@@ -153,10 +176,13 @@ class DappStore extends SubStore {
                 payment: []
             }
         }).then((tx) => {
-            this.updateDetailsByTxObject(JSON.parse(tx));
+            const transaction = JSON.parse(tx);
+            this.updateDetailsByTxObject(transaction);
+            this.startTxByIdWatcher(transaction);
         }).catch((error) => {
             alert(error.message);
             console.log(error);
+            this.wait = false;
         });
     };
 
@@ -177,6 +203,20 @@ class DappStore extends SubStore {
 
     startHeightWatcher = () =>
         autorun((reaction) => this.updateHeight(), {scheduler: run => setInterval(run, 30000)});
+
+    @action
+    getTxById = async ({id, address}: { id: string, address: string }, reaction: IReactionPublic) => {
+        const resp = await fetch(`${NODE_URL}/transactions/info/${id}`);
+        if (resp.status === 200) {
+            this.updateLoanDetails(address).then(() => {
+                this.setWait(false);
+            });
+            reaction.dispose();
+        }
+    };
+
+    startTxByIdWatcher = (tx) =>
+        autorun((reaction) => this.getTxById(tx, reaction), {scheduler: run => setInterval(run, 2000)});
 
 
 }

@@ -18,6 +18,12 @@
   margin-bottom: 20px;
 }
 
+.load {
+  background: url("../../assets/icons/app-loading.gif") no-repeat scroll center center transparent;
+  width: 100%;
+  height: 100%;
+}
+
 .header1Font {
   @include Body-4Basic900Centr;
   padding-bottom: 48px;
@@ -28,7 +34,7 @@
   @include Body-0WhiteRight;
 }
 
-.railStyle{
+.railStyle {
   background-color: $submit-300;
 }
 
@@ -277,12 +283,12 @@
 
 }
 
-.discard{
+.discard {
   border-bottom: 1px solid $warning-400;
   cursor: pointer;
 }
 
-.flexColumn{
+.flexColumn {
   display: flex;
   flex-direction: column;
 }

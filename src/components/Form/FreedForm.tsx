@@ -12,7 +12,7 @@ import { round2, round8 } from '@utils';
 const Handle = Slider.Handle;
 
 const handle = (props) => {
-    const { value, dragging, index, ...restProps } = props;
+    const {value, dragging, index, ...restProps} = props;
     return (
         <Tooltip
             prefixCls="rc-slider-tooltip"
@@ -65,13 +65,13 @@ export default class FreedForm extends React.Component<IProps, IState> {
         const amountInBlock = this.state.wavesRate / this.props.interestPeriod * 1440;
         return amountInBlock > this.state.wavesRate ? this.state.wavesRate : amountInBlock;
     };
-    private calculateInterestAmountAtBlock = () => this.state.wavesRate / this.props.interestPeriod ;
+    private calculateInterestAmountAtBlock = () => this.state.wavesRate / this.props.interestPeriod;
 
     private handleChangeWavesCount = (value: number) => {
         if (value === 0) {
             this.setState({wavesRate: 0, btcRate: 0});
         } else {
-            const currentValue = this.checkWavesValue(value);
+            const currentValue = this.checkZeroValue(value);
             this.setState({
                 wavesRate: currentValue,
                 btcRate: currentValue / this.props.rate!
@@ -87,43 +87,34 @@ export default class FreedForm extends React.Component<IProps, IState> {
     }
 
     private handleChangeBtcCount = (value: number) => {
-        const currentValue = this.checkBtcValue(value);
+        const currentValue = this.checkZeroValue(value);
         this.setState({
             wavesRate: currentValue * this.props.rate!,
             btcRate: currentValue,
         });
     };
 
-    private checkWavesValue = (val: number) => {
-        // const canPay = this.props.balance ? (+this.props.balance / m) - 1 : 0;
-        if (val < 0) return 0;
-        // if (this.props.balance && val > canPay) return canPay;
-        // if (val > this.props.maxTokenCount * this.props.rate!) return this.props.maxTokenCount * this.props.rate!;
-        return val;
-    };
+    private checkZeroValue = (val: number) => (val < 0) ? 0 : val;
 
-    private checkBtcValue = (val: number) => {
-        // const canPay = this.props.balance ? (+this.props.balance / m) - 1 : 0;
-        if (val < 0) return 0;
-        // if (this.props.balance && val > canPay / this.props.rate!) return canPay / this.props.rate!;
-        // if (val > this.props.maxTokenCount) return this.props.maxTokenCount;
-        return val;
+    private handleGetLoan = () => {
+        this.props.onGetLoan(this.state.wavesRate);
+        // this.props.setLoad(true);
     };
 
     handleFocus = (e) => e.target.select();
 
     render(): React.ReactNode {
         const {wavesRate, btcRate} = this.state;
-        const {isLogin, onGetLoan, rate, balance, maxTokenCount, grace} = this.props;
+        const {isLogin, rate, maxTokenCount, grace} = this.props;
         const interestAmountAtDay = round2(this.calculateInterestAmountAtDay());
         const interestAmountAtBlock = round8(this.calculateInterestAmountAtBlock());
         return <div className={styles.root}>
-            <div>
+            <>
                 <div className={styles.header1Font}>Loan calculator</div>
                 <div className={styles.calculateField}>
                     <div className={styles.calculateField_col}>
                         <div className={styles.header2Font}>
-                            Amount for deposit{/*Your balance {balance || 0} WAVES*/}
+                            Amount for deposit
                         </div>
                         <div className={styles.captionFont}>You pay</div>
                         <div className={styles.inputField}>
@@ -139,7 +130,7 @@ export default class FreedForm extends React.Component<IProps, IState> {
                     </div>
                     <div className={styles.calculateField_col}>
                         <div className={styles.header2Font}>
-                            Will be borrowed{/*DApp balance {maxTokenCount} WBTC*/}
+                            Will be borrowed
                         </div>
                         <div className={styles.captionFont}>You get</div>
                         <div className={styles.inputField}>
@@ -163,7 +154,7 @@ export default class FreedForm extends React.Component<IProps, IState> {
                         defaultValue={btcRate}
                         value={btcRate}
                         handle={handle}
-                        trackStyle={{ backgroundColor: 'blue'}}
+                        trackStyle={{backgroundColor: 'blue'}}
                         step={0.01}
                         onChange={this.handleChangeBtcCount}
                     />
@@ -187,14 +178,6 @@ export default class FreedForm extends React.Component<IProps, IState> {
                             &nbsp;blocks&nbsp;)
                         </div>
                     </div>
-                    {/*<div className={styles.rateField_row}>*/}
-                        {/*Interest after {this.gracePeriodAtDays} days*/}
-                        {/*<div className={styles.rateFont}>*/}
-                            {/*<b className={styles.rateCount}>~{interestAmount}</b> &nbsp;*/}
-                            {/*<div className={styles.rateFont_waves}>WAVES</div>*/}
-                            {/*&nbsp;/ Day*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
                 </div>
                 <div className={styles.header2Font}>After grace period ends:</div>
                 <div className={styles.rateField}>
@@ -216,8 +199,8 @@ export default class FreedForm extends React.Component<IProps, IState> {
                     </div>
                 </div>
 
-            </div>
-            <div>
+            </>
+            <>
 
                 <div className={styles.yellowCaption}>To take a loan you have to sign in first</div>
                 <div className={styles.btnField}>
@@ -231,12 +214,12 @@ export default class FreedForm extends React.Component<IProps, IState> {
                     <button
                         disabled={!isLogin}
                         className={styles.submitBnt}
-                        onClick={() => onGetLoan(wavesRate)}
+                        onClick={this.handleGetLoan}
                     >
                         Get a loan
                     </button>
                 </div>
-            </div>
+            </>
         </div>;
     }
 }
