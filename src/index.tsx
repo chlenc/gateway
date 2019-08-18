@@ -4,10 +4,18 @@ import { render } from 'react-dom';
 import { Provider as MobxProvider } from 'mobx-react';
 
 import { RootStore } from '@stores';
+import { createBrowserHistory } from 'history';
 
 import './styles';
+import 'antd/dist/antd.css';
+
 import App from '@components/App';
 
 const mobXStore = new RootStore();
 
-render(<MobxProvider {...mobXStore}><App/></MobxProvider>, document.getElementById('root'));
+const history = createBrowserHistory();
+
+
+render(<MobxProvider {...mobXStore}><App history={history}/></MobxProvider>, document.getElementById('root'));
+
+

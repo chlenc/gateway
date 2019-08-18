@@ -107,7 +107,7 @@ class DappStore extends SubStore {
         return;
     };
 
-    private printDappData = async () =>
+     printDappData = async () =>
         console.dir(await (await fetch(`${NODE_URL}/addresses/data/${DAPP_ADDRESS}`)).json());
 
     @action

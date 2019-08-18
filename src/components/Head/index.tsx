@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './styles.scss';
-import Form from '@src/components/Form';
 import SignBtn from '@components/SignBtn';
 import AccountStore from '@stores/AccountStore';
 import { inject, observer } from 'mobx-react';
@@ -40,14 +39,6 @@ export default class Head extends React.Component<IProps> {
                             WAVES stake? We provide you with the ability to instantly borrow coins on loan terms set in
                             a smart contract on the decentralised Waves network.
                         </div>
-                        {/*{[*/}
-                        {/*'Affordable interest rates',*/}
-                        {/*'Reliable and safe',*/}
-                        {/*'Simple process of borrowing and repayment',*/}
-                        {/*].map((item, i) => <ListItem key={i} text={item}/>)}*/}
-                    </div>
-                    <div className={styles.form}>
-                        <Form/>
                     </div>
                 </div>
             </div>
@@ -55,10 +46,4 @@ export default class Head extends React.Component<IProps> {
         </div>;
     }
 }
-
-const ListItem = ({text}) =>
-    <div className={styles.itemFont}>
-        <div className={styles.handIcon}/>
-        {text}
-    </div>;
 
